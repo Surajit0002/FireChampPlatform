@@ -19,52 +19,52 @@ import { useAuth } from "@/hooks/use-auth";
 import { TournamentFilter } from "@/types";
 import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Filter, SlidersHorizontal } from "lucide-react";
+import { Search, Filter, SlidersHorizontal, X } from "lucide-react";
 
 export default function TournamentsPage() {
   const { user } = useAuth();
   const [, navigate] = useLocation();
   const { toast } = useToast();
-  
+
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState<TournamentFilter>({
     mode: "all",
     status: "all",
     entryType: "all",
   });
-  
+
   // Fetch tournaments
   const { data: tournaments = [], isLoading } = useQuery<Tournament[]>({
     queryKey: ["/api/tournaments"],
   });
-  
+
   // Filter tournaments based on search query and filters
   const filteredTournaments = tournaments.filter((tournament) => {
     // Search filter
     if (searchQuery && !tournament.name.toLowerCase().includes(searchQuery.toLowerCase())) {
       return false;
     }
-    
+
     // Mode filter
     if (filters.mode !== "all" && tournament.mode.toLowerCase() !== filters.mode) {
       return false;
     }
-    
+
     // Status filter
     if (filters.status !== "all" && tournament.status.toLowerCase() !== filters.status) {
       return false;
     }
-    
+
     // Entry type filter
     if (filters.entryType === "free" && tournament.entryFee > 0) {
       return false;
     } else if (filters.entryType === "paid" && tournament.entryFee === 0) {
       return false;
     }
-    
+
     return true;
   });
-  
+
   // Handler for joining tournament
   const handleJoinTournament = (id: number) => {
     if (!user) {
@@ -76,38 +76,59 @@ export default function TournamentsPage() {
       navigate("/auth");
       return;
     }
-    
+
     navigate(`/tournaments/${id}`);
   };
-  
+
   return (
     <div className="flex flex-col min-h-screen">
       <AppHeader />
-      
+
       <main className="flex-grow pt-16 md:pt-20 pb-20 md:pb-6">
         <div className="container mx-auto px-4 py-12">
           {/* Page title and search */}
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
             <h1 className="font-heading text-3xl md:text-4xl font-bold">Tournaments</h1>
-            
-            <div className="relative w-full md:w-64">
+
+            <motion.div 
+              className="relative w-full md:w-64"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3 }}
+            >
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-4 w-4" />
               <Input
                 placeholder="Search tournaments"
-                className="bg-dark pl-10 border-slate-700"
+                className="bg-dark pl-10 border-slate-700 transition-all duration-300 focus:border-primary focus:ring-1 focus:ring-primary"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-            </div>
+              {searchQuery && (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2"
+                >
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-6 w-6 p-0"
+                    onClick={() => setSearchQuery("")}
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </motion.div>
+              )}
+            </motion.div>
           </div>
-          
+
           {/* Filters */}
           <div className="mb-8 bg-dark rounded-xl p-4 border border-slate-700">
             <div className="flex items-center gap-2 mb-4">
               <Filter className="h-5 w-5 text-primary" />
               <h2 className="font-medium">Filters</h2>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
                 <label className="text-xs text-slate-400 mb-1 block">Game Mode</label>
@@ -126,7 +147,7 @@ export default function TournamentsPage() {
                   </SelectContent>
                 </Select>
               </div>
-              
+
               <div>
                 <label className="text-xs text-slate-400 mb-1 block">Tournament Status</label>
                 <Select 
@@ -144,7 +165,7 @@ export default function TournamentsPage() {
                   </SelectContent>
                 </Select>
               </div>
-              
+
               <div>
                 <label className="text-xs text-slate-400 mb-1 block">Entry Type</label>
                 <Select 
@@ -161,7 +182,7 @@ export default function TournamentsPage() {
                   </SelectContent>
                 </Select>
               </div>
-              
+
               <div>
                 <label className="text-xs text-slate-400 mb-1 block">Sort By</label>
                 <Select defaultValue="date">
@@ -177,7 +198,7 @@ export default function TournamentsPage() {
                 </Select>
               </div>
             </div>
-            
+
             <div className="mt-4 flex justify-end">
               <Button variant="outline" size="sm" className="gap-2" onClick={() => setFilters({
                 mode: "all",
@@ -189,7 +210,7 @@ export default function TournamentsPage() {
               </Button>
             </div>
           </div>
-          
+
           {/* Tournament display modes */}
           <Tabs defaultValue="grid" className="mb-6">
             <div className="flex justify-between items-center">
@@ -206,7 +227,7 @@ export default function TournamentsPage() {
               </TabsList>
             </div>
           </Tabs>
-          
+
           {/* Tournament Grid */}
           <AnimatePresence mode="wait">
             {isLoading ? (
@@ -254,7 +275,7 @@ export default function TournamentsPage() {
           </AnimatePresence>
         </div>
       </main>
-      
+
       <AppFooter />
     </div>
   );

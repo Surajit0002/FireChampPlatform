@@ -38,31 +38,31 @@ export default function TournamentDetailPage() {
   const [, navigate] = useLocation();
   const { toast } = useToast();
   const tournamentId = parseInt(id);
-  
+
   const [activeTab, setActiveTab] = useState("overview");
   const [joinModalOpen, setJoinModalOpen] = useState(false);
-  
+
   // Fetch tournament details
   const { data: tournament, isLoading: isLoadingTournament } = useQuery<Tournament>({
     queryKey: [`/api/tournaments/${tournamentId}`],
     enabled: !isNaN(tournamentId),
   });
-  
+
   // Fetch tournament participants
   const { data: participants = [], isLoading: isLoadingParticipants } = useQuery<TournamentParticipant[]>({
     queryKey: [`/api/tournaments/${tournamentId}/participants`],
     enabled: !isNaN(tournamentId),
   });
-  
+
   // Fetch wallet if user is logged in
   const { data: walletData } = useQuery<WalletData>({
     queryKey: ["/api/wallet"],
     enabled: !!user,
   });
-  
+
   // Check if user has already joined this tournament
   const hasJoined = user && participants.some(p => p.userId === user.id);
-  
+
   // Join tournament mutation
   const joinMutation = useMutation({
     mutationFn: async () => {
@@ -85,7 +85,7 @@ export default function TournamentDetailPage() {
       });
     },
   });
-  
+
   // Withdraw from tournament mutation
   const withdrawMutation = useMutation({
     mutationFn: async () => {
@@ -108,7 +108,7 @@ export default function TournamentDetailPage() {
       });
     },
   });
-  
+
   const handleJoinTournament = () => {
     if (!user) {
       toast({
@@ -119,9 +119,9 @@ export default function TournamentDetailPage() {
       navigate("/auth");
       return;
     }
-    
+
     if (!tournament) return;
-    
+
     // Check if user has enough balance
     if (walletData && walletData.balance < tournament.entryFee) {
       toast({
@@ -132,16 +132,16 @@ export default function TournamentDetailPage() {
       navigate("/wallet");
       return;
     }
-    
+
     joinMutation.mutate();
   };
-  
+
   const handleWithdrawTournament = () => {
     if (!hasJoined) return;
-    
+
     withdrawMutation.mutate();
   };
-  
+
   if (isLoadingTournament) {
     return (
       <div className="flex flex-col min-h-screen">
@@ -155,7 +155,7 @@ export default function TournamentDetailPage() {
       </div>
     );
   }
-  
+
   if (!tournament) {
     return (
       <div className="flex flex-col min-h-screen">
@@ -178,18 +178,18 @@ export default function TournamentDetailPage() {
       </div>
     );
   }
-  
+
   const participantsCount = participants.length;
   const slotsRemaining = tournament.maxPlayers - participantsCount;
   const startDate = new Date(tournament.startTime);
   const isUpcoming = tournament.status === "upcoming";
   const isOngoing = tournament.status === "ongoing";
   const isCompleted = tournament.status === "completed";
-  
+
   return (
     <div className="flex flex-col min-h-screen">
       <AppHeader />
-      
+
       <main className="flex-grow pt-16 md:pt-20 pb-20 md:pb-6">
         <div className="container mx-auto px-4 py-12">
           {/* Back button */}
@@ -201,12 +201,12 @@ export default function TournamentDetailPage() {
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Tournaments
           </Button>
-          
+
           {/* Tournament header */}
           <div className="relative rounded-2xl overflow-hidden mb-8">
             {/* Background gradient */}
             <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-accent/30 z-0"></div>
-            
+
             {/* Content */}
             <div className="relative z-10 p-8 md:p-10">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -225,11 +225,11 @@ export default function TournamentDetailPage() {
                       {tournament.mode.toUpperCase()}
                     </span>
                   </div>
-                  
+
                   <h1 className="font-heading text-3xl md:text-4xl font-bold mb-2">
                     {tournament.name}
                   </h1>
-                  
+
                   <div className="flex flex-wrap gap-4">
                     <div className="flex items-center text-sm text-slate-300">
                       <Calendar className="mr-1 h-4 w-4" />
@@ -245,7 +245,7 @@ export default function TournamentDetailPage() {
                     </div>
                   </div>
                 </div>
-                
+
                 {isUpcoming && (
                   <div className="shrink-0 bg-dark/50 backdrop-blur-sm rounded-xl p-3 text-center">
                     <div className="text-sm text-slate-300 mb-1">Tournament starts in:</div>
@@ -260,7 +260,7 @@ export default function TournamentDetailPage() {
               </div>
             </div>
           </div>
-          
+
           {/* Tournament content */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main content */}
@@ -273,14 +273,14 @@ export default function TournamentDetailPage() {
                     <p className="text-xl font-bold text-accent">{formatCurrency(tournament.prizePool)}</p>
                   </CardContent>
                 </Card>
-                
+
                 <Card className="bg-dark border-slate-700">
                   <CardContent className="p-4">
                     <p className="text-xs text-slate-400 mb-1">Entry Fee</p>
                     <p className="text-xl font-bold">{formatCurrency(tournament.entryFee)}</p>
                   </CardContent>
                 </Card>
-                
+
                 <Card className="bg-dark border-slate-700">
                   <CardContent className="p-4">
                     <p className="text-xs text-slate-400 mb-1">Per Kill</p>
@@ -289,7 +289,7 @@ export default function TournamentDetailPage() {
                     </p>
                   </CardContent>
                 </Card>
-                
+
                 <Card className="bg-dark border-slate-700">
                   <CardContent className="p-4">
                     <p className="text-xs text-slate-400 mb-1">Mode</p>
@@ -297,7 +297,7 @@ export default function TournamentDetailPage() {
                   </CardContent>
                 </Card>
               </div>
-              
+
               {/* Tournament tabs */}
               <Tabs value={activeTab} onValueChange={setActiveTab}>
                 <TabsList className="bg-dark w-full justify-start mb-6 overflow-x-auto">
@@ -307,7 +307,7 @@ export default function TournamentDetailPage() {
                   <TabsTrigger value="players">Players</TabsTrigger>
                   {isCompleted && <TabsTrigger value="results">Results</TabsTrigger>}
                 </TabsList>
-                
+
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeTab}
@@ -320,10 +320,10 @@ export default function TournamentDetailPage() {
                       <Card className="bg-dark border-slate-700">
                         <CardContent className="p-6">
                           <h3 className="font-heading text-xl font-bold mb-4">Tournament Details</h3>
-                          
+
                           <div className="space-y-4 text-slate-300">
                             <p>{tournament.description || "Join this exciting Free Fire tournament and battle for glory and prizes!"}</p>
-                            
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                               <div>
                                 <h4 className="font-bold mb-3">Match Details</h4>
@@ -346,7 +346,7 @@ export default function TournamentDetailPage() {
                                   </li>
                                 </ul>
                               </div>
-                              
+
                               <div>
                                 <h4 className="font-bold mb-3">Requirements</h4>
                                 <ul className="space-y-3">
@@ -366,7 +366,7 @@ export default function TournamentDetailPage() {
                               </div>
                             </div>
                           </div>
-                          
+
                           {(isOngoing || isCompleted) && tournament.roomId && (
                             <div className="mt-8 p-4 bg-primary/10 rounded-xl border border-primary/30">
                               <h4 className="font-bold mb-2 flex items-center">
@@ -388,12 +388,12 @@ export default function TournamentDetailPage() {
                         </CardContent>
                       </Card>
                     </TabsContent>
-                    
+
                     <TabsContent value="rules" className="m-0">
                       <Card className="bg-dark border-slate-700">
                         <CardContent className="p-6">
                           <h3 className="font-heading text-xl font-bold mb-4">Tournament Rules</h3>
-                          
+
                           <div className="space-y-4 text-slate-300">
                             {tournament.rules ? (
                               <p>{tournament.rules}</p>
@@ -407,7 +407,7 @@ export default function TournamentDetailPage() {
                                   <li>Players must be present in the room at least 5 minutes before the match starts.</li>
                                   <li>Match results are final and determined by the tournament organizers.</li>
                                 </ul>
-                                
+
                                 <h4 className="font-bold mt-6">Scoring System</h4>
                                 <ul className="list-disc list-inside space-y-2 ml-2">
                                   <li>Placement Points:
@@ -421,7 +421,7 @@ export default function TournamentDetailPage() {
                                   <li>Each kill is worth {tournament.perKillReward ? formatCurrency(tournament.perKillReward) : "1 point"}.</li>
                                   <li>The total score is calculated as the sum of placement points and kill points.</li>
                                 </ul>
-                                
+
                                 <h4 className="font-bold mt-6">Disqualification</h4>
                                 <p>Players can be disqualified for any of the following reasons:</p>
                                 <ul className="list-disc list-inside space-y-2 ml-2">
@@ -437,17 +437,17 @@ export default function TournamentDetailPage() {
                         </CardContent>
                       </Card>
                     </TabsContent>
-                    
+
                     <TabsContent value="prizes" className="m-0">
                       <Card className="bg-dark border-slate-700">
                         <CardContent className="p-6">
                           <h3 className="font-heading text-xl font-bold mb-4">Prize Distribution</h3>
-                          
+
                           <div className="text-slate-300">
                             <p className="mb-6">
                               Total Prize Pool: <span className="font-bold text-accent">{formatCurrency(tournament.prizePool)}</span>
                             </p>
-                            
+
                             <ul className="space-y-4">
                               <li className="flex items-center justify-between pb-3 border-b border-slate-700">
                                 <div className="flex items-center">
@@ -456,7 +456,7 @@ export default function TournamentDetailPage() {
                                 </div>
                                 <span className="font-bold text-accent">{formatCurrency(tournament.prizePool * 0.45)}</span>
                               </li>
-                              
+
                               <li className="flex items-center justify-between pb-3 border-b border-slate-700">
                                 <div className="flex items-center">
                                   <div className="w-8 h-8 rounded-full bg-slate-300 flex items-center justify-center text-dark font-bold mr-3">2</div>
@@ -464,7 +464,7 @@ export default function TournamentDetailPage() {
                                 </div>
                                 <span className="font-bold text-accent">{formatCurrency(tournament.prizePool * 0.25)}</span>
                               </li>
-                              
+
                               <li className="flex items-center justify-between pb-3 border-b border-slate-700">
                                 <div className="flex items-center">
                                   <div className="w-8 h-8 rounded-full bg-amber-600 flex items-center justify-center text-dark font-bold mr-3">3</div>
@@ -472,7 +472,7 @@ export default function TournamentDetailPage() {
                                 </div>
                                 <span className="font-bold text-accent">{formatCurrency(tournament.prizePool * 0.15)}</span>
                               </li>
-                              
+
                               <li className="flex items-center justify-between pb-3 border-b border-slate-700">
                                 <div className="flex items-center">
                                   <div className="w-8 h-8 rounded-full bg-dark-light flex items-center justify-center text-white font-bold mr-3">4</div>
@@ -480,7 +480,7 @@ export default function TournamentDetailPage() {
                                 </div>
                                 <span className="font-bold text-accent">{formatCurrency(tournament.prizePool * 0.08)}</span>
                               </li>
-                              
+
                               <li className="flex items-center justify-between pb-3 border-b border-slate-700">
                                 <div className="flex items-center">
                                   <div className="w-8 h-8 rounded-full bg-dark-light flex items-center justify-center text-white font-bold mr-3">5</div>
@@ -488,7 +488,7 @@ export default function TournamentDetailPage() {
                                 </div>
                                 <span className="font-bold text-accent">{formatCurrency(tournament.prizePool * 0.05)}</span>
                               </li>
-                              
+
                               {tournament.perKillReward && (
                                 <li className="flex items-center justify-between">
                                   <div className="flex items-center">
@@ -501,7 +501,7 @@ export default function TournamentDetailPage() {
                                 </li>
                               )}
                             </ul>
-                            
+
                             <div className="mt-6 p-4 bg-slate-800/50 rounded-xl">
                               <h4 className="font-medium mb-2 flex items-center">
                                 <Info className="h-4 w-4 mr-2" />
@@ -516,12 +516,12 @@ export default function TournamentDetailPage() {
                         </CardContent>
                       </Card>
                     </TabsContent>
-                    
+
                     <TabsContent value="players" className="m-0">
                       <Card className="bg-dark border-slate-700">
                         <CardContent className="p-6">
                           <h3 className="font-heading text-xl font-bold mb-4">Registered Players</h3>
-                          
+
                           {isLoadingParticipants ? (
                             <div className="animate-pulse space-y-4">
                               {Array.from({ length: 5 }).map((_, index) => (
@@ -544,7 +544,7 @@ export default function TournamentDetailPage() {
                                 <span>Player</span>
                                 <span>Status</span>
                               </div>
-                              
+
                               {participants.map((participant) => (
                                 <div 
                                   key={participant.id}
@@ -584,13 +584,13 @@ export default function TournamentDetailPage() {
                         </CardContent>
                       </Card>
                     </TabsContent>
-                    
+
                     {isCompleted && (
                       <TabsContent value="results" className="m-0">
                         <Card className="bg-dark border-slate-700">
                           <CardContent className="p-6">
                             <h3 className="font-heading text-xl font-bold mb-4">Tournament Results</h3>
-                            
+
                             <div className="text-slate-300">
                               {/* Would show results here if they were available */}
                               <div className="text-center py-8">
@@ -607,7 +607,7 @@ export default function TournamentDetailPage() {
                 </AnimatePresence>
               </Tabs>
             </div>
-            
+
             {/* Sidebar */}
             <div>
               {/* Registration card */}
@@ -634,7 +634,7 @@ export default function TournamentDetailPage() {
                         : "Tournament has ended"}
                     </p>
                   </div>
-                  
+
                   {/* Countdown Timer */}
                   {isUpcoming && (
                     <div className="grid grid-cols-4 gap-2 mb-6">
@@ -676,7 +676,7 @@ export default function TournamentDetailPage() {
                       </div>
                     </div>
                   )}
-                  
+
                   {/* Slots Progress */}
                   <div className="mb-6">
                     <div className="flex justify-between mb-1">
@@ -694,7 +694,7 @@ export default function TournamentDetailPage() {
                       fillClassName="bg-primary"
                     />
                   </div>
-                  
+
                   {/* Action buttons */}
                   {isUpcoming ? (
                     hasJoined ? (
@@ -747,7 +747,7 @@ export default function TournamentDetailPage() {
                       Tournament Ended
                     </Button>
                   )}
-                  
+
                   <p className="text-xs text-slate-400 text-center">
                     {isUpcoming 
                       ? "Room details will be revealed 15 minutes before the match" 
@@ -755,7 +755,7 @@ export default function TournamentDetailPage() {
                       ? "Use the room ID and password to join the match" 
                       : "Thanks for your interest in this tournament"}
                   </p>
-                  
+
                   {/* Organizer info (sample) */}
                   <div className="mt-6 pt-6 border-t border-slate-700">
                     <div className="flex items-center">
@@ -769,7 +769,7 @@ export default function TournamentDetailPage() {
           </div>
         </div>
       </main>
-      
+
       <AppFooter />
     </div>
   );
