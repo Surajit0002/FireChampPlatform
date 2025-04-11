@@ -1,0 +1,202 @@
+13. Prize Pool Page
+Layout:
+Header: Consistent navigation with logo, profile, and search.
+
+Prize Pool Breakdown:
+
+Display the total prize pool and the breakdown for each rank (1st, 2nd, 3rd, etc.).
+
+Use horizontal progress bars for each rank's prize pool, visually showing how much the top players will receive.
+
+Rank Distribution:
+
+A grid layout showing the rank, prize amount, and number of winners for each rank.
+
+Hovering over each rank shows the detailed prize information (cash, coins, or merchandise).
+
+Rewards:
+
+For each prize, list specific details, such as physical prizes or exclusive skins.
+
+Display images of the prizes where applicable (e.g., merchandise or game items).
+
+Contest Entry Information:
+
+A CTA button to view or join tournaments.
+
+Information on how to participate in upcoming tournaments.
+
+Design & Styles:
+Progress Bars: Use vibrant, contrasting colors to represent different ranks and prizes (e.g., gold for 1st, silver for 2nd).
+
+Typography: Bold headers with smaller text for prize details. Ensure the text is easy to read, even in smaller sizes.
+
+Grid Layout: Use a grid to separate each rank's prize details.
+
+Hover Effects: Subtle hover effects on each prize rank to show more detailed information.
+
+14. Tournament Calendar Page
+Layout:
+Header: Consistent, with sticky navigation.
+
+Calendar View:
+
+Display the upcoming tournaments in a monthly calendar view, showing the tournament dates.
+
+Each tournament date should be clickable, displaying brief information (e.g., time, registration fee, prize pool).
+
+List View:
+
+Below the calendar, provide a list view of upcoming tournaments, with filter options for type (Solo, Duo, Squad) and date.
+
+Registration CTA:
+
+A button to Register Now for upcoming tournaments, visible on each listed event.
+
+Design & Styles:
+Calendar: Use a clean, minimal calendar design with interactive date tiles.
+
+Hover Effects: Highlight the tournaments with a subtle color change on hover.
+
+List View: Make sure each tournament is displayed with concise details for easy scanning (e.g., tournament name, date, prize pool).
+
+Typography: Modern and legible fonts for easy readability.
+
+15. Team Management Page
+Layout:
+Header: Consistent navigation, sticky for easy access.
+
+Current Teams Section:
+
+Display a list of teams that the user is part of.
+
+Each team will have a card layout showing the team name, players, rank, and upcoming tournaments they are participating in.
+
+Team Invitations:
+
+Show incoming invitations for the user to join teams.
+
+Include Accept or Decline buttons for each invitation.
+
+Create New Team:
+
+A CTA button to allow users to create their own teams.
+
+When clicked, a form pops up to add players and team details (team name, region, etc.).
+
+Team Communication:
+
+Direct link to the team's private chat or Discord server.
+
+Design & Styles:
+Cards for Teams: Use visually appealing cards with rounded edges and hover effects.
+
+Team Invitation: Display invitations clearly with large, accessible buttons (Accept/Decline).
+
+Typography: Larger, bolder text for team names, with smaller details for team rank and players.
+
+Form Design: Simple, user-friendly forms to create teams with intuitive fields for easy team setup.
+
+16. User Leaderboard Page
+Layout:
+Header: Remain consistent for navigation.
+
+Leaderboard View:
+
+Display a dynamic leaderboard that updates in real-time.
+
+Include player rank, player name, points, kills, and region.
+
+Filter & Search:
+
+Filters for rank, kills, points, and region.
+
+Search bar to search by player name or UID.
+
+Top 10 Players:
+
+Display the Top 10 Players in a prominent section at the top, with their rank and key stats.
+
+User Stats:
+
+Each player in the leaderboard should have an option to view detailed stats, including tournament participation and performance over time.
+
+Design & Styles:
+Real-Time Updates: Implement a real-time leaderboard, updating automatically every few seconds.
+
+Card Layout for Players: Display each player's rank in a card format with stats clearly laid out.
+
+Hover Effects: On player names, show more detailed stats in a hover box or modal.
+
+Typography: Bold and large text for rank and name, with smaller font for stats.
+
+17. Referral Program Page
+Layout:
+Header: Consistent sticky header for easy navigation.
+
+Referral Info Section:
+
+Provide a brief introduction about the referral program, including how it works (e.g., refer friends, earn rewards).
+
+Referral Code & Link:
+
+Display a personalized referral code and link for the user to share.
+
+CTA Buttons: Buttons to Copy Referral Code and Share Link (via WhatsApp, Facebook, etc.).
+
+Referral Rewards:
+
+List of rewards the user can earn for successful referrals (coins, free entry to tournaments, etc.).
+
+Leaderboard for Referrals:
+
+A dynamic leaderboard for top referrers showing the user’s rank, number of referrals, and rewards earned.
+
+Design & Styles:
+Referral Card Design: A prominent card showcasing the referral code with a copy button for easy sharing.
+
+Buttons: Clear and easy-to-click Copy and Share buttons, with icons for each sharing method.
+
+Leaderboard: Dynamic leaderboard with rewards listed beneath each player’s name.
+
+Typography: Ensure the referral instructions are clear and straightforward, with large buttons for ease of use.
+
+18. FAQ / Help Center Page
+Layout:
+Header: Consistent navigation for easy access to all pages.
+
+Categories:
+
+List of common categories (e.g., Account Issues, Payment Problems, Tournament Rules).
+
+Search Bar:
+
+Allow users to search for specific help topics.
+
+Help Articles:
+
+Display articles for each category in a collapsible accordion-style layout.
+
+Each article should have a title, a brief description, and a detailed solution when clicked.
+
+Contact Support:
+
+CTA button for contacting customer support or live chat if users need further help.
+
+Design & Styles:
+Accordion Design: Use an accordion-style layout to expand and collapse help articles for easier reading.
+
+Icons for Categories: Use simple, intuitive icons for each category (e.g., question mark for general queries, wallet icon for payment issues).
+
+Typography: Ensure text is legible and articles are easy to read with proper headings and bullet points.
+
+General Design Principles for These Pages:
+Consistency: All pages should follow the same consistent layout, color scheme, and typography.
+
+Mobile First: Ensure all pages are fully responsive and optimized for mobile devices.
+
+Dynamic Content: Use real-time data updates where applicable (e.g., leaderboards, results, notifications).
+
+Visual Appeal: Leverage vibrant, contrasting colors to highlight key sections (e.g., leaderboards, prizes, registration).
+
+Engagement: Use dynamic elements such as hover effects, modal windows, and CTA buttons to enhance user engagement.

@@ -1,0 +1,243 @@
+7. Tournament Registration Page
+Layout:
+Header: Remain consistent with previous pages (Logo, Search, Profile, etc.).
+
+Tournament Info Section:
+
+Tournament name, date, and prize pool.
+
+Countdown timer to the tournament start.
+
+Registration Form:
+
+Tournament Mode: Select options (Solo, Duo, Squad) – dropdown or buttons.
+
+Player Info:
+
+Name (pre-filled from the user profile)
+
+Player UID (pre-filled)
+
+Team Name (if applicable)
+
+Entry Fee Payment:
+
+Show the entry fee for the selected mode.
+
+Payment options: Pay via coins or cash (dropdown for method selection).
+
+CTA button: “Pay and Register”.
+
+Confirm Registration:
+
+Confirmation box once payment is successful, with a "Join Tournament" button.
+
+Rules & Regulations:
+
+A section displaying the tournament rules (dropdown or accordion-style).
+
+Design & Styles:
+Form Layout: Simple, clean form with labeled input fields. Use a two-column layout for desktop, and stack form fields on mobile.
+
+Buttons: Use contrasting CTA buttons for “Join Now” and “Pay and Register”.
+
+Background: Use a subtle Free Fire-themed background with a blurred overlay for focus on the form.
+
+Typography: Clear and readable fonts, using larger font sizes for headings and smaller for form inputs.
+
+Input Fields: Rounded edges with hover effects and field validation indicators.
+
+8. Tournament Results Page
+Layout:
+Header: Sticky as always for consistent navigation.
+
+Tournament Info Section:
+
+Tournament name, prize pool, winner, and ranking.
+
+Leaderboard showing top 10 players with their ranks, kills, and total points.
+
+Results Table:
+
+Display tournament results in a table:
+
+Player Name
+
+Kills
+
+Rank
+
+Total Points
+
+Prize Won (if applicable)
+
+Allow sorting by kills, points, or rank.
+
+Match Replay:
+
+Link to the replay video of the match if available.
+
+CTA Button: “Watch Replay”.
+
+Historical Results:
+
+Show past tournaments with links to view their results.
+
+Design & Styles:
+Leaderboard Grid: A dynamic, sortable grid with hover effects on player rows.
+
+Table Design: Responsive table with clearly defined columns, alternating row colors for readability.
+
+Replay Button: Prominent button to encourage users to watch the match.
+
+Background: Clean, minimal background to keep the focus on the results.
+
+9. Live Stream Page (For Live Tournaments)
+Layout:
+Header: Consistent across all pages for easy navigation.
+
+Live Stream Player:
+
+Embed the live stream at the top of the page.
+
+Play/Pause/Volume Controls.
+
+Quality Settings: Option to change stream quality (Low, Medium, High).
+
+Chat Section: Live chat box on the side for users to interact during the stream.
+
+Match Info:
+
+Tournament Name, Date, and Match Number.
+
+List of current top players in the live game (Player name, kills, and rank).
+
+Leaderboards: Real-time leaderboard for the ongoing match.
+
+Schedule & Upcoming Streams:
+
+A section at the bottom showing upcoming streams and tournament schedules.
+
+Design & Styles:
+Video Player: Full-screen embedded video player for seamless viewing.
+
+Chat Box: Positioned below the stream with a clean design, allowing users to interact without interrupting the main content.
+
+Dynamic Leaderboard: Live leaderboard updated in real time, with a smooth animation when rankings change.
+
+Background: Minimal, dark-colored background to keep focus on the video content.
+
+10. Notification Center Page
+Layout:
+Header: Consistent with all other pages for easy navigation.
+
+Notification List:
+
+Grid Layout with notifications displayed in a dynamic card format.
+
+Notifications related to tournament invitations, results, leaderboard updates, and new updates about Free Fire events.
+
+Filter Options:
+
+Type: (All, Tournaments, Match Results, Announcements, etc.)
+
+Date: Filter by recent notifications.
+
+Mark All as Read: Button at the top to clear or mark all notifications as read.
+
+Notification Details:
+
+Clicking on any notification should show the full details of the message or update.
+
+Design & Styles:
+Card Design: Each notification should be in a card layout with icons representing the type (e.g., trophy icon for tournament wins).
+
+Icons: Use notification-type icons (bell, trophy, etc.) for easy identification.
+
+Hover Effects: Slight background change when hovering over each notification.
+
+Typography: Bold for headings, regular for body text, with timestamp details in a smaller font.
+
+Clean Layout: Proper padding between notifications for a neat, organized list.
+
+11. User Settings Page
+Layout:
+Header: Remain consistent for navigation.
+
+Profile Settings:
+
+Avatar: Option to upload or change avatar.
+
+Username and UID: Pre-filled with user details (editable if needed).
+
+Email and Contact Info: Editable fields.
+
+Account Settings:
+
+Password Change: Option to change the password, with confirmation fields.
+
+Two-Factor Authentication: Enable/Disable 2FA for account security.
+
+Payment Methods:
+
+Link Wallet: Option to link payment methods like Paytm or UPI.
+
+Notification Preferences:
+
+Option to set preferences for notifications (email, in-app, both).
+
+Delete Account: At the bottom of the page, with a caution warning.
+
+Design & Styles:
+Form Design: Neatly aligned with ample spacing and form field validation for easier data entry.
+
+Tabs: Use tabs for separating sections like Profile, Payment, and Notifications.
+
+Hover Effects: For buttons like "Save Changes" and "Delete Account".
+
+Typography: Clear, large headers for each section to improve usability.
+
+12. Admin Dashboard (Backend)
+Layout:
+Side Navigation: A collapsible sidebar with links to manage tournaments, users, payments, reports, etc.
+
+Dashboard Overview:
+
+Current Tournaments: Number of active, upcoming, and completed tournaments.
+
+Player Stats: Total number of registered users, active players, and players who have withdrawn.
+
+Revenue Overview: Display a graph or chart showing revenue generated from tournament entry fees.
+
+User Management:
+
+View and manage user profiles, including stats, bans, and communication.
+
+Tournament Management:
+
+Create, edit, or remove tournaments.
+
+Manage player participation and results.
+
+Payment and Withdrawals:
+
+Approve or reject withdrawals and see pending payment statuses.
+
+Design & Styles:
+Data Grid: Clean, tabular design with sorting and filtering capabilities.
+
+Graphs/Charts: Use dynamic pie charts or bar graphs for tournament statistics and revenue.
+
+Hover Effects: Hover on buttons for a color change or slight scale to indicate interaction.
+
+General Design Principles for All Pages:
+Responsiveness: Pages should be fully responsive, meaning they must adapt smoothly across mobile, tablet, and desktop sizes.
+
+Consistency: Keep a consistent color scheme, font, and button design across all pages to reinforce branding.
+
+User Engagement: Implement dynamic, real-time interactions, such as live updates on leaderboards, streaming matches, and notifications.
+
+Ease of Navigation: Keep navigation intuitive with a sticky header and well-organized menus.
+
+Accessibility: Ensure all text has sufficient contrast against backgrounds, and interactive elements are easily clickable on mobile.
+

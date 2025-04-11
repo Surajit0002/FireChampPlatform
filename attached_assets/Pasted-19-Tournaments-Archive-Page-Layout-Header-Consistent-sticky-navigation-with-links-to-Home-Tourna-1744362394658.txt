@@ -1,0 +1,183 @@
+19. Tournaments Archive Page
+Layout:
+Header: Consistent sticky navigation with links to Home, Tournaments, Shop, Profile, etc.
+
+Past Tournaments List:
+
+Display a grid or list of past tournaments that users can click to view detailed results, stats, and highlights.
+
+Show the tournament name, date, and prize pool.
+
+Include filter options to view past tournaments by date, rank, or type (Solo/Duo/Squad).
+
+Tournament Details:
+
+Clicking on a past tournament will open a detailed page showing:
+
+Final Leaderboard: Ranking of all participants with their performance data.
+
+Prize Distribution: Breakdown of how prizes were distributed.
+
+Event Highlights: Video highlights, player interviews, or notable moments.
+
+Search Functionality:
+
+Provide a search bar to find tournaments based on player names, dates, or prize pool.
+
+Design & Styles:
+Grid Layout: Use a grid layout with tournament cards showing key details (name, date, prize).
+
+Hover Effects: On hover, display the basic tournament details (date, prize pool).
+
+Typography: Bold headings for tournament names and subtle fonts for tournament dates and results.
+
+Icons: Use icons for filter options (calendar for dates, trophy for prize pool).
+
+20. Match Replay Page
+Layout:
+Header: Sticky navigation with profile, home, and other pages accessible.
+
+Replay Search:
+
+Provide a search bar to look for replays by tournament name, player name, or date.
+
+Replay List:
+
+Display a list of replays from past tournaments, with the match date, players involved, and tournament name.
+
+Each match can have a thumbnail preview of the game’s highlights or an intro video.
+
+Match Details:
+
+Clicking on a replay will take the user to the match details page where they can:
+
+Watch the replay video (embed or link to external platforms like YouTube).
+
+View key stats from the match (top kills, winner, survival time).
+
+Player Highlights: Show a list of top players and their performance stats (kills, accuracy, etc.).
+
+Design & Styles:
+List/Grid View: Present replays in a list or grid, with hover-over effects showing more details.
+
+Player Cards: When showing players in match details, use player cards with their avatars and statistics.
+
+Embedded Video: Ensure the video player is clean, with play/pause buttons clearly visible.
+
+Search Bar: Provide a search bar for easy navigation through match replays.
+
+21. User Profile Page
+Layout:
+Header: Sticky navigation for easy access to different sections of the site.
+
+Profile Header:
+
+Display the user’s avatar, username, and rank at the top.
+
+Include a profile progress bar showing tournament participation and achievements.
+
+Stats Section:
+
+Display the user’s overall tournament stats, such as total matches played, total kills, total wins, and overall rank.
+
+Upcoming Tournaments:
+
+A list of upcoming tournaments that the user has entered, with information about the prize pool, tournament rules, and time.
+
+Achievements & Rewards:
+
+Show the user’s earned achievements, such as top scorer in tournaments, special skins, or badges for specific milestones.
+
+Design & Styles:
+Profile Card: Use a card format for the user’s profile, with their avatar on the left and stats on the right.
+
+Progress Bar: Add a progress bar for their achievements to indicate how close they are to earning new rewards.
+
+Typography: Bold and large text for the profile name and rank, with smaller text for stats.
+
+Hover Effects: Provide subtle hover effects for interactions with stats and achievements.
+
+22. Notification Center
+Layout:
+Header: The consistent navigation bar with quick access to notifications.
+
+Notification Feed:
+
+Display a feed of notifications related to tournaments, match results, prize pool updates, and new challenges.
+
+Include both system notifications (game updates, platform news) and personalized notifications (tournament invites, achievements).
+
+Actionable Notifications:
+
+Some notifications should have CTA buttons such as "Join Now", "View Details", or "Claim Reward" for user interaction.
+
+Clear All Button:
+
+A "Clear All" button at the top or bottom of the feed to allow users to remove all notifications.
+
+Design & Styles:
+Feed Layout: Use a card-based layout for each notification with icons indicating the type (event, system, reward).
+
+CTA Buttons: Include actionable CTA buttons for each notification with hover effects.
+
+Typography: Use small, readable text for notification content with bold icons for quick scanning.
+
+23. Terms & Conditions Page
+Layout:
+Header: Consistent sticky navigation with an easy-to-access footer link.
+
+Content Sections:
+
+Organize terms and conditions into different sections (e.g., User Agreement, Privacy Policy, Tournament Rules, etc.).
+
+Each section should be expandable/collapsible for ease of reading.
+
+Highlight Key Points:
+
+Use a highlight box to draw attention to key points (e.g., tournament rules, account suspension policies).
+
+Design & Styles:
+Accordion Sections: Use an accordion layout to allow users to expand and collapse content.
+
+Highlight Boxes: Use subtle background colors or borders to highlight important terms.
+
+Typography: Ensure the text is legible, using headings and subheadings for easy navigation.
+
+24. About Us / Contact Us Page
+Layout:
+Header: Consistent navigation with sticky top header.
+
+About Us Section:
+
+Brief introduction to the FireChamp team, the platform’s mission, and vision.
+
+Display team photos or a company logo.
+
+Contact Form:
+
+Provide a contact form with fields for name, email, subject, and message.
+
+Include social media links for quick access to platforms like Facebook, Twitter, Instagram, and Discord.
+
+FAQs:
+
+Include a link to frequently asked questions for quick self-help.
+
+Design & Styles:
+Simple Layout: Clean, minimal layout with a focus on contact information.
+
+Icons: Use social media icons for easy access to the platform’s official social pages.
+
+Typography: Ensure easy readability with clear headings for each section.
+
+General Features to Include Across All Pages:
+Responsiveness: Ensure that all pages are fully responsive, working smoothly on both mobile and desktop devices.
+
+Real-Time Updates: Where applicable (e.g., leaderboards, notifications, tournaments), include real-time updates for a more dynamic experience.
+
+Hover Effects: Interactive hover effects on clickable elements (e.g., buttons, links, tournament cards).
+
+Intuitive UI: The layout must be easy to navigate, with clear visual hierarchy and smooth transitions between pages.
+
+CTA Buttons: Prominent and easily accessible buttons for key actions (e.g., Register Now, View Details, Claim Rewards).
+

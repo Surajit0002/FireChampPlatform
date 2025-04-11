@@ -1,0 +1,269 @@
+1. Homepage
+Layout:
+Header (Sticky navigation bar):
+
+Logo: Positioned on the left, large enough to be easily visible.
+
+Search Bar: Centered and easily accessible for users to find tournaments or players.
+
+Profile and Notifications Icons: Positioned on the right with a dropdown for user options (e.g., profile, wallet, settings).
+
+Main Hero Section:
+
+Large Banner: Eye-catching background image related to Free Fire, with a dynamic countdown timer for the next tournament.
+
+CTA Button: "Join Now" for quick registration.
+
+Overlay text: Tournament details like date, entry fee, prize pool.
+
+Tournament Categories Grid:
+
+Grid System (3 or 4 columns): Representing different modes (Solo, Duo, Squad, etc.)
+
+Hover Effects: Show a tooltip with the category description and the number of active tournaments.
+
+Icons: Each category represented by an icon (e.g., solo player icon, duo team icon, etc.).
+
+Upcoming Tournaments Section:
+
+Dynamic Grid/Carousel Layout: Displaying a list of upcoming tournaments.
+
+Tournament Cards:
+
+Tournament Name
+
+Countdown timer
+
+Entry Fee & Prize Pool
+
+Quick “Join Now” button.
+
+Filters: By entry fee, game mode, or date.
+
+Pagination or Load More button.
+
+Featured Matches:
+
+Show matches that are live or have recently completed.
+
+Player stats, leaderboard link, and tournament history.
+
+Footer:
+
+Quick Links: About Us, Terms & Conditions, Privacy Policy.
+
+Social Media Links: Icons for Facebook, Twitter, Instagram, etc.
+
+Design & Styles:
+Color Scheme:
+
+Primary: Bright Red, Orange (Fire-related colors) for CTAs, with dark backgrounds for contrast.
+
+Secondary: Light grays and whites for text, icons, and borders.
+
+Typography:
+
+Headings: Bold, large sans-serif font.
+
+Body text: Clean, simple, and readable sans-serif font.
+
+CTA buttons: White text on vibrant background colors (e.g., #ff6600 for Join Now).
+
+Hover Effects: Subtle background change, icon scaling, and CTA button enlargement.
+
+2. Tournament Listings Page
+Layout:
+Breadcrumb Navigation: To show users where they are in the app (Home > Tournaments).
+
+Filters Sidebar:
+
+Filters: Entry Fee (Free, Paid), Tournament Mode (Solo, Duo, Squad), Date Range.
+
+Multi-select dropdowns for easy filtering.
+
+Tournament Grid:
+
+Grid Layout with 3-4 columns, each card representing a tournament.
+
+Tournament Cards:
+
+Tournament Name
+
+Prize Pool
+
+Countdown Timer
+
+Entry Fee
+
+Quick "Join Now" button
+
+Tournament Mode (Solo/Duo/Squad)
+
+Sort Options: Sort by Date, Prize Pool, Entry Fee, Number of Spots Left.
+
+Pagination/Load More: Infinite scroll or "Load More" button for tournament listings.
+
+Design & Styles:
+Grid System: 3-4 columns per row, responsive for mobile and desktop views.
+
+Card Design:
+
+Border radius on tournament cards for a modern feel.
+
+Shadow effect on hover to indicate interactivity.
+
+Clean typographic hierarchy: Tournament Name > Entry Fee > Prize Pool > Join Now Button.
+
+Background: Subtle background pattern related to gaming (e.g., abstract hexagonal patterns).
+
+3. Tournament Details Page
+Layout:
+Tournament Info Section:
+
+Tournament Title, Date, Time.
+
+Prize Pool, Entry Fee, Prize Distribution.
+
+Join Tournament Button (only active if the user has enough balance).
+
+Tournament Mode & Rules:
+
+Information about the tournament mode (Solo, Duo, Squad).
+
+Detailed list of rules and regulations.
+
+Room ID/Password for joining the match.
+
+Leaderboard Section:
+
+Live ranking during the tournament.
+
+Display the current top 10 players with their kill count and rank.
+
+Past Winners tab to show previous tournament winners.
+
+Match Countdown:
+
+A large, dynamic countdown timer.
+
+Match Start Button once the countdown hits zero.
+
+Design & Styles:
+CTA Buttons: Use vibrant, contrasting colors to attract attention (e.g., orange for “Join Now”).
+
+Typography: Use larger font sizes for tournament name and countdown. Use smaller, but legible text for rules and prize pool.
+
+Background: Utilize Free Fire-themed images as background with blurred overlays to make the content stand out.
+
+Tab Design:
+
+Horizontal tab navigation (Rules, Players, Leaderboard).
+
+Tab switching with smooth transitions.
+
+4. Player Profile Page
+Layout:
+Profile Header:
+
+Avatar Image, Player Name, and Free Fire Game UID.
+
+Edit Profile Button: Users can edit their avatar, name, and email.
+
+Player Stats:
+
+Kills, Wins, Matches Played, Top Rank.
+
+Show dynamic performance statistics and win rate.
+
+Tournaments Joined:
+
+A history of all tournaments the player has participated in with the results (Winner, Runner-up, etc.).
+
+Past match details with links to replay (if applicable).
+
+Wallet Overview:
+
+Display current coin balance, recent transactions, and withdrawal options.
+
+Leaderboard Position:
+
+Show player’s rank in global or recent tournaments.
+
+Design & Styles:
+Profile Design: Full-width profile with a large avatar and a clean, neat layout.
+
+Stats Bar: Horizontal progress bars for kills, wins, and rank.
+
+Tabs for Information: Each section (Stats, Tournaments, Wallet) should be in different tabs for better organization.
+
+Background: Subtle gradient with Free Fire-themed icons or patterns.
+
+5. Wallet & Transactions Page
+Layout:
+Wallet Overview:
+
+Total Balance: Display coins and cash balance at the top.
+
+Deposit/Withdraw Buttons to add or withdraw coins.
+
+Transaction History:
+
+A list of recent transactions with details (date, amount, type).
+
+Filter for transaction type (Deposit, Withdrawal, Tournament Fee, Rewards).
+
+Add Funds:
+
+Options to add funds via UPI, Razorpay, or Paytm.
+
+Show minimum amounts and transaction fees (if applicable).
+
+Design & Styles:
+Card Design: Use cards to separate different sections of the wallet.
+
+Typography: Display numerical values with larger fonts for better visibility.
+
+Transaction History Grid: Create a table grid layout for transactions, with filter options at the top.
+
+6. Admin Dashboard
+Layout:
+Navigation Menu: Sidebar with menu items for managing tournaments, users, transactions, etc.
+
+Tournament Management:
+
+Ability to create, edit, or remove tournaments.
+
+Display tournament names, date, prize pool, and entry fee.
+
+Link to tournament results page.
+
+User Management:
+
+A list of registered players with their stats (total tournaments played, wins, total coins).
+
+Options to suspend, promote, or communicate with players.
+
+Withdraw Management:
+
+Approve or reject withdrawal requests from players.
+
+Show pending transactions, their status, and amount.
+
+Design & Styles:
+Grid Layout for displaying user and tournament information.
+
+Data Tables with sort and filter options for tournament and user lists.
+
+Hover Effects: Dark background and blue highlight for row selection.
+
+General UI/UX Principles:
+Mobile-First Design: Ensure all pages are fully responsive and provide a smooth experience on mobile devices.
+
+Consistency: Keep the layout and design consistent across all pages for better navigation and user understanding.
+
+Smooth Animations: Use subtle animations for page transitions and hover effects to enhance user interaction.
+
+Easy Navigation: Ensure intuitive navigation, clear labels for buttons, and visible CTA (Call to Action) buttons.
+
+Performance: Optimize assets for fast loading times, especially for images and icons.
+

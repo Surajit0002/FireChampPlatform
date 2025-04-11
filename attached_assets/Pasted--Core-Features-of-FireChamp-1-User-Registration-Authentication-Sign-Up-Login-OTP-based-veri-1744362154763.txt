@@ -1,0 +1,308 @@
+🔥 Core Features of FireChamp
+1. User Registration & Authentication
+Sign Up / Login:
+
+OTP-based verification (via phone number)
+
+Google / Facebook login options
+
+Secure password-based login (for registered users)
+
+Game UID input (Free Fire game ID)
+
+Profile Management:
+
+Avatar upload
+
+Edit display name, email, phone number
+
+Link to Free Fire game ID (UID)
+
+Change password functionality
+
+KYC (Know Your Customer) Upload (optional for some regions)
+
+2. Tournaments
+Tournament List:
+
+Filter tournaments by:
+
+Date (Upcoming, Ongoing, Completed)
+
+Entry type (Paid/Free)
+
+Mode (Solo, Duo, Squad)
+
+Map and Mode type (Classic, Battle Royale, etc.)
+
+Tournament details shown:
+
+Entry Fee & Prize Pool
+
+Match Rules
+
+Join button (if sufficient balance)
+
+Countdown for upcoming tournaments
+
+Spots Left / Registration Progress bar
+
+Match Joining:
+
+Players can join open tournaments by paying an entry fee or using free coins
+
+Display of available spots and player limit
+
+Room ID & password generation once registration is confirmed
+
+Auto countdown timer for match start
+
+Player leaderboard visible during/after the tournament
+
+Match Rules & Information:
+
+Mode of play (Solo, Duo, Squad)
+
+Prize distribution chart
+
+Match start and end times
+
+Room ID and password for match entry
+
+3. Leaderboard
+Real-Time Leaderboard:
+
+Player rankings based on kills, wins, and match performance
+
+Daily, weekly, monthly, and all-time leaderboards
+
+Top players highlighted with rewards (for top 3, etc.)
+
+Players’ rank shown on their profile page
+
+Filter to view a specific player's rank in the tournament
+
+4. Wallet
+Wallet Balance:
+
+Track coins, cash, and available prize pool balance
+
+Coin-to-INR conversion rate (e.g., 1 coin = 0.0001 INR)
+
+Option to withdraw coins to UPI or bank account
+
+Transaction history (add funds, withdraw funds, match entry, etc.)
+
+Add Funds:
+
+Integration with UPI, Razorpay, or Paytm for fund additions
+
+Coin purchase options for players
+
+Payment gateways for secure transactions
+
+Withdraw Funds:
+
+Request for withdrawal of winnings (via UPI or bank account)
+
+Payout history and pending transactions
+
+Minimum withdrawal limits (to ensure no fraud)
+
+5. Referrals & Rewards
+Referral System:
+
+Players can refer others using a unique code/link
+
+Earn rewards (coins, cash) for every successful referral
+
+Track referral stats: total invites, active referrals, rewards earned
+
+Referral leaderboard showing top referrers
+
+Reward structure: 10 coins for each successful referral
+
+6. Match Details & Results
+Match Results:
+
+View match results with player rankings (including kills, wins, etc.)
+
+Submit match-related images/screen captures (optional)
+
+Prize distribution after results
+
+Reward allocation displayed in the wallet section
+
+Match Replay/History:
+
+Ability to review past matches (highlight kills, moments)
+
+Player statistics and ranking history for each tournament
+
+7. Admin Panel
+Match Management:
+
+Create, edit, or remove tournaments
+
+Set entry fees, rewards, match rules
+
+Manually assign winners (if needed)
+
+Manage match results and upload scorecards
+
+Generate room IDs and passwords
+
+User Management:
+
+Approve KYC/ID uploads
+
+View player activity (matches joined, winnings, history)
+
+Handle disputes and complaints from players
+
+Ban/Unban users if necessary
+
+Withdraw Management:
+
+Approve or reject user withdrawal requests
+
+Verify the authenticity of withdrawal requests
+
+Monitor fund distribution and balance
+
+8. Notifications
+Match Alerts:
+
+Push notifications for upcoming tournaments, match results, and updates
+
+In-app notifications for room ID availability, match status
+
+Alerts for when referral rewards are earned or withdrawn
+
+System Announcements:
+
+Notify users about system maintenance, new features, or policy changes
+
+9. Premium Store
+Item Purchase:
+
+Buy digital goods such as skins, avatars, and tournament passes
+
+Purchase with wallet coins or INR via UPI integration
+
+Tournament Passes:
+
+Special passes to join exclusive tournaments
+
+Additional rewards for premium members (special leaderboards, skins)
+
+10. Match Chat (Optional)
+Room-based Chat:
+
+In-game chat functionality for players within a room
+
+Send messages, share game strategies, team talk during the match
+
+Group Chats:
+
+For larger communities or event-based discussions
+
+11. Support & Help
+Help Center:
+
+Frequently Asked Questions (FAQs)
+
+Tutorials on how to join tournaments, manage wallet, etc.
+
+Live chat support integration (via services like Tawk.to or Crisp)
+
+Contact Support:
+
+Email/phone support for user issues
+
+Real-time problem resolution
+
+12. Match Stats & Analytics
+Player Stats:
+
+Overview of performance: kills, deaths, wins, etc.
+
+Time played, matches participated in
+
+Win rate, kill-to-death ratio (K/D ratio)
+
+Advanced Match Analytics:
+
+View match heatmaps and player movement on the map (if implemented)
+
+Post-match statistical breakdown for each player and the entire squad
+
+13. Security & Fraud Prevention
+Anti-Cheat System:
+
+Detection of duplicate accounts, bots, or hacks
+
+Screenshots or video evidence submission to verify match results
+
+Secure Transactions:
+
+Encryption for all financial transactions
+
+Monitoring system to detect fraudulent activities
+
+Account Safety:
+
+2FA (Two-Factor Authentication) for login protection
+
+Regular monitoring of accounts for suspicious activity
+
+14. Multi-language Support
+Global Reach:
+
+Interface available in English, Hindi, Bengali, Tamil, Telugu, and more
+
+Option to switch languages in the user profile or settings
+
+Support for region-specific payment gateways (e.g., UPI in India)
+
+📱 Mobile-First Features
+Responsive Design:
+
+Optimized for mobile screens, with a sticky bottom navigation bar
+
+Fast load times and smooth animations
+
+Touch-friendly design for all interactive elements
+
+Native Features:
+
+Push notifications on mobile
+
+In-app purchases via mobile (e.g., store purchases, wallet funds)
+
+Optimized for Android and iOS platforms
+
+📊 Advanced Features
+AI-based Matchmaking (Optional for Future):
+
+Match players based on skill levels (ranked matches)
+
+Auto-detection of game performance (accuracy, kills) to improve match quality
+
+Live Streaming Integration (Optional for Future):
+
+Integration with Twitch or YouTube for tournament streaming
+
+Real-time interaction with streamers and viewers
+
+Display live results directly on the tournament page
+
+🛠 Technology Stack
+Layer	Tech
+Frontend	React.js, Next.js, Tailwind CSS
+Backend	Node.js (Express), Firebase Functions
+Database	Firebase Firestore, MongoDB (Optional)
+Authentication	Firebase Auth (OTP/Google/Facebook)
+Payments	Razorpay / Paytm / UPI
+Push Notifications	OneSignal
+Hosting	Firebase Hosting, Vercel

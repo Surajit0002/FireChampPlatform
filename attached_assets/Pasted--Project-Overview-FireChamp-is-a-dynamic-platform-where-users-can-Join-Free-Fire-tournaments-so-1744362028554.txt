@@ -1,0 +1,329 @@
+🧠 Project Overview
+FireChamp is a dynamic platform where users can:
+
+Join Free Fire tournaments (solo, duo, squad)
+
+Win cash, diamonds, coins, and gear
+
+Compete on leaderboards
+
+Withdraw winnings to UPI/bank
+
+Interact via live chat, earn via referrals, and more
+
+🧩 Key Modules
+Module	Description
+🎮 Tournaments	List, join, view rules, live results
+👤 User System	Login, profile, team, match history
+💰 Wallet	Coins, add/withdraw money, track transactions
+🏆 Leaderboard	Ranks based on kills, wins, etc.
+🧾 Admin	Manage matches, users, payouts
+📢 Notifications	Live updates, room ID alerts
+🧑‍🤝‍🧑 Referral	Earn rewards for inviting players
+🛍️ Premium	Coins/digital items store
+📞 Support	Help center, FAQs, contact options
+🗺️ All Pages – Full List
+1. Home (/)
+Hero Section: “Compete. Win. Earn.”
+
+Featured Matches (carousel/grid)
+
+Steps: How FireChamp Works
+
+Live Leaderboard Snapshot
+
+Testimonials
+
+App Download Promo (if available)
+
+Footer: Terms, Privacy, Socials, About
+
+2. Tournaments (/tournaments)
+Filters: Date, Mode, Entry Type, Map, Type
+
+Match Cards:
+
+Match Name, Date/Time
+
+Entry Fee & Prize Pool
+
+Kill Rewards, Room Type
+
+Status Badge (Upcoming/Ongoing/Completed)
+
+Spots Left Progress Bar
+
+Pagination
+
+3. Match Details (/tournament/:id)
+Banner with Match Title & Countdown
+
+Room Details (map, mode, type, rules)
+
+Rewards Chart
+
+Join Button (shows wallet modal if insufficient funds)
+
+Slot Booking View (joined players)
+
+Room ID & Password Section (time-locked)
+
+Results Tab (Post-match)
+
+Rules Accordion
+
+Submit Kill Screenshot (if enabled)
+
+4. Login / Register (/login, /register)
+OTP + Password
+
+Google Auth
+
+Mobile No. Verification
+
+Game UID Input (Free Fire UID)
+
+5. My Matches (/my-matches)
+Tabs: Upcoming, Ongoing, Completed
+
+Join/Cancel Buttons
+
+Match Status Badge
+
+Slot List with teammates
+
+Results & Submission Status
+
+Room ID + PW if available
+
+6. My Profile (/profile)
+Avatar Upload
+
+Display Name, Email, Phone, Game UID
+
+Change Password
+
+KYC Upload (optional)
+
+Team Management
+
+View Referrals Earned
+
+7. Wallet (/wallet)
+Coin + INR Balance Display
+
+Add Money (UPI Gateway Integration)
+
+Withdraw Request Form
+
+Convert Coins to INR
+
+Transaction History
+
+Filter: All / Add / Withdraw / Match Join
+
+8. Leaderboard (/leaderboard)
+Filters: Daily / Weekly / Monthly / All-Time
+
+Rank, Avatar, Player Name, Kills, Wins
+
+Reward Tags (Top 3)
+
+My Rank Highlight
+
+9. Admin Panel (/admin)
+Login (super-admin only)
+
+Dashboard Overview
+
+Create New Match
+
+Edit/Delete Matches
+
+Manage Joined Players
+
+Upload Match Results
+
+Push Notification Panel
+
+Withdraw Request Management
+
+Add/Delete Admins
+
+Reports (Player Reports)
+
+10. Refer & Earn (/refer)
+Unique Referral Code / Share Link
+
+Bonus per Referral (coins/cash)
+
+Total Earned, Claimed, Pending
+
+Invite Banner
+
+Terms for Referral Payout
+
+11. Store (/store) (Optional Premium Section)
+Buy Coins
+
+Buy Tournament Passes
+
+Skins, Badges, Emotes (digital items)
+
+Purchase via Wallet or UPI
+
+12. Notifications (/notifications)
+Match Alerts
+
+Room Ready
+
+Results Uploaded
+
+System Announcements
+
+Bonus Rewards Claimed
+
+13. Support (/support)
+Contact Form (email to admin)
+
+WhatsApp & Telegram Buttons
+
+FAQ Accordion
+
+Live Chat (Crisp / Tawk.to integration)
+
+14. Legal Pages
+/terms – Terms of Service
+
+/privacy – Privacy Policy
+
+/refund-policy – Refund Policy
+
+/about – About FireChamp
+
+🎨 UI/UX System
+🖌️ Design Language
+Primary Color: Deep Blue #1D4ED8
+
+Accent: Neon Orange #F97316
+
+Neutral: White + Slate Gray
+
+Font: Inter / Poppins
+
+Corners: rounded-2xl, bold layouts
+
+Shadows: Soft with hover pop
+
+Animations: Framer Motion (cards, buttons, countdowns)
+
+🔁 Reusable Components
+MatchCard
+
+WalletModal
+
+NotificationBadge
+
+CountdownTimer
+
+RoomIDPopup
+
+SlotBookingCard
+
+LeaderboardCard
+
+AdminTable
+
+📱 Mobile First Design
+Sticky bottom bar:
+
+🏠 Home, 🎮 Matches, 💰 Wallet, 🔔 Notif, 👤 Profile
+
+Swipeable Tabs
+
+Full-screen Modals
+
+Tap-friendly Buttons
+
+Optimized for Android Browsers
+
+🔐 User Roles
+Role	Permissions
+Player	Register, Join Matches, Withdraw
+Verified Player	Unlock Withdrawals, Room ID
+Admin	Create/Edit Matches, Approve Payments
+Super Admin	Full Control, Add Admins
+🔮 Smart/Advanced Features
+Auto Countdown for Match Join
+
+Room ID Reveal Timer
+
+Real-Time Player Slot Updates
+
+Push Notification Alerts (OneSignal)
+
+Auto Result Upload + Screenshot Validation
+
+KYC Upload + Admin Verification
+
+Coins-to-Cash Conversion Based on Usage
+
+💸 Monetization Model
+💰 Entry Fees
+
+🔁 Commission from Paid Matches
+
+🛍️ Premium Store Items
+
+📣 Ad Placement (optional)
+
+🔥 Referral-based growth (virality loop)
+
+🧾 Backend API Plan (Node.js + Express or Firebase Functions)
+/api/login, /api/register
+
+/api/matches, /api/match/:id
+
+/api/join-match, /api/cancel-join
+
+/api/wallet/add, /api/wallet/withdraw
+
+/api/results/upload
+
+/api/admin/create-match, /api/admin/approve
+
+/api/referrals, /api/notifications
+
+🔐 Security Plan
+JWT Auth
+
+Firebase Phone Auth / OTP
+
+Admin panel protection via middleware
+
+KYC ID upload encryption
+
+Anti-cheat checks (for duplicate accounts or fake kills)
+
+📦 Tech Stack
+Layer	Tech
+Frontend	React + Tailwind CSS + Framer Motion
+Backend	Node.js / Firebase Functions
+Database	Firebase Firestore / MongoDB
+Auth	Firebase Auth
+Payment	Razorpay / Cashfree / Paytm
+Hosting	Vercel / Firebase Hosting
+Push	OneSignal
+🛠 Optional Add-ons (Phase 2)
+📺 Livestream Embed per Match (YouTube/Twitch)
+
+💬 Match Chat (Room-wise)
+
+🧠 AI Kill Detection via Screenshot OCR
+
+📥 Invite via Contacts
+
+🧾 Match History + Analytics
+
+🌐 Multilingual Support (EN/HIN/BENG/TEL)
+
