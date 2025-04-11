@@ -78,6 +78,172 @@ export class MemStorage implements IStorage {
     this.sessionStore = new MemoryStore({
       checkPeriod: 86400000 // 24 hours
     });
+    
+    // Create demo tournament data
+    this.createDemoTournaments();
+    this.createDemoLeaderboard();
+  }
+  
+  private createDemoTournaments() {
+    const now = new Date();
+    
+    // Upcoming tournaments
+    this.createTournament({
+      name: "FireStorm Solo Championship",
+      description: "Compete in this high-stakes solo battle to win big prizes. Show your skills and claim the crown!",
+      startTime: new Date(now.getTime() + 3600000 * 5), // 5 hours from now
+      entryFee: 50,
+      prizePool: 5000,
+      perKillReward: 20,
+      maxPlayers: 100,
+      mode: "solo",
+      map: "Bermuda",
+      status: "upcoming",
+      rules: "1. Check-in 15 minutes before start time. 2. No teaming. 3. Screenshot your results.",
+      image: "",
+      roomId: "57821",
+      roomPassword: "fire123"
+    });
+    
+    this.createTournament({
+      name: "Desert Duos Showdown",
+      description: "Find a partner and dominate the Kalahari desert in this duo tournament with special weapon drops.",
+      startTime: new Date(now.getTime() + 3600000 * 10), // 10 hours from now
+      entryFee: 75,
+      prizePool: 7500,
+      perKillReward: 25,
+      maxPlayers: 50,
+      mode: "duo",
+      map: "Kalahari",
+      status: "upcoming",
+      rules: "1. Team registration required. 2. Fair play rules enforced. 3. Streamers must have delay.",
+      image: "",
+      roomId: "43789",
+      roomPassword: "duos789"
+    });
+    
+    this.createTournament({
+      name: "Squad Survival Series",
+      description: "Rally your squad for an intense battle against the best teams. Coordinate, communicate, conquer!",
+      startTime: new Date(now.getTime() + 3600000 * 24), // 24 hours from now
+      entryFee: 100,
+      prizePool: 10000,
+      perKillReward: 30,
+      maxPlayers: 48,
+      mode: "squad",
+      map: "Purgatory",
+      status: "upcoming",
+      rules: "1. All 4 squad members must register. 2. Squad leader responsible for team. 3. Point system: placement + kills.",
+      image: "",
+      roomId: "92481",
+      roomPassword: "squad456"
+    });
+    
+    // Ongoing tournaments
+    this.createTournament({
+      name: "Midnight Mayhem",
+      description: "The ultimate night-mode tournament where only the strongest survive. Limited visibility, maximum excitement!",
+      startTime: new Date(now.getTime() - 3600000 * 1), // 1 hour ago
+      entryFee: 60,
+      prizePool: 6000,
+      perKillReward: 25,
+      maxPlayers: 100,
+      mode: "solo",
+      map: "Bermuda",
+      status: "ongoing",
+      rules: "1. Night mode active. 2. Extra points for headshots. 3. No vehicle usage in final circle.",
+      image: "",
+      roomId: "67421",
+      roomPassword: "night888"
+    });
+    
+    this.createTournament({
+      name: "Alpine Winter Challenge",
+      description: "Battle in the freezing mountains with unique winter gameplay mechanics and rare loot.",
+      startTime: new Date(now.getTime() - 3600000 * 2), // 2 hours ago
+      entryFee: 80,
+      prizePool: 8000,
+      perKillReward: 30,
+      maxPlayers: 60,
+      mode: "squad",
+      map: "Alpine",
+      status: "ongoing",
+      rules: "1. Special winter rules apply. 2. Limited healing items. 3. Final zone is smaller than usual.",
+      image: "",
+      roomId: "13579",
+      roomPassword: "snow246"
+    });
+    
+    // Completed tournaments
+    this.createTournament({
+      name: "Free Fire Pro League - Week 3",
+      description: "The third week of our professional league featuring the best players. Spectate or compete!",
+      startTime: new Date(now.getTime() - 3600000 * 24 * 2), // 2 days ago
+      entryFee: 120,
+      prizePool: 15000,
+      perKillReward: 40,
+      maxPlayers: 100,
+      mode: "solo",
+      map: "Bermuda",
+      status: "completed",
+      rules: "1. Professional players only. 2. Streaming mandatory. 3. Ranking based on kill points + placement.",
+      image: "",
+      roomId: "98765",
+      roomPassword: "pro321"
+    });
+    
+    this.createTournament({
+      name: "Weekend Warrior Cup",
+      description: "The perfect weekend tournament for casual and competitive players alike. Everyone has a chance!",
+      startTime: new Date(now.getTime() - 3600000 * 24 * 5), // 5 days ago
+      entryFee: 50,
+      prizePool: 5000,
+      perKillReward: 20,
+      maxPlayers: 80,
+      mode: "duo",
+      map: "Kalahari",
+      status: "completed",
+      rules: "1. Fair play enforced. 2. No smurfing. 3. Report suspicious behavior immediately.",
+      image: "",
+      roomId: "24680",
+      roomPassword: "weekend123"
+    });
+    
+    // Free tournament
+    this.createTournament({
+      name: "Newbie Friendly Faceoff",
+      description: "Perfect for beginners! Free entry, learn competitive play, and still win prizes. All are welcome!",
+      startTime: new Date(now.getTime() + 3600000 * 15), // 15 hours from now
+      entryFee: 0,
+      prizePool: 1000,
+      perKillReward: 10,
+      maxPlayers: 120,
+      mode: "solo",
+      map: "Bermuda",
+      status: "upcoming",
+      rules: "1. New players priority. 2. Coaching available before match. 3. Good sportsmanship required.",
+      image: "",
+      roomId: "11223",
+      roomPassword: "newbie456"
+    });
+  }
+  
+  private createDemoLeaderboard() {
+    const periods = ["daily", "weekly", "monthly", "all-time"];
+    
+    // Create 20 leaderboard entries for each period
+    periods.forEach(period => {
+      for (let i = 1; i <= 20; i++) {
+        this.updateLeaderboardEntry({
+          userId: i,
+          kills: Math.floor(Math.random() * 50) + 10,
+          wins: Math.floor(Math.random() * 10) + 1,
+          earnings: (Math.floor(Math.random() * 500) + 100) * 10,
+          tournamentCount: Math.floor(Math.random() * 20) + 5,
+          period
+        });
+      }
+    });
   }
 
   // User operations
