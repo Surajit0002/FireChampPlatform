@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CountUp from "react-countup";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
 import { Tournament } from "@shared/schema";
