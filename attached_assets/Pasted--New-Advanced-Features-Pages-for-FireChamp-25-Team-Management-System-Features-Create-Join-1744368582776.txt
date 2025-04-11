@@ -1,0 +1,193 @@
+🔥 New Advanced Features & Pages for FireChamp
+✅ 25. Team Management System
+🔧 Features:
+Create/Join Team: Players can create their own team, assign a name, banner, and invite others.
+
+Team Roster Page: View all team members, ranks, and performance.
+
+Team Stats: Total wins, kills, earnings, etc.
+
+Team Chat: In-built group chat for communication.
+
+Team Leaderboard: Global ranking for all registered teams.
+
+🎨 UI/UX Design:
+Team Profile Card: Banner, avatar, tagline, and team stats.
+
+Dynamic Grid: Show all teams in a filterable grid layout.
+
+Chat UI: Messenger-like chat window with emojis and notifications.
+
+✅ 26. Live Match Spectator Mode
+🎥 Features:
+Watch Live Matches directly from the platform.
+
+Integrated YouTube/Twitch streams.
+
+Live match chat, reactions, and viewer count.
+
+🎨 UI/UX Design:
+Streaming Window at the top.
+
+Below it: live stats, match progress, and a live chat panel.
+
+Reaction buttons (🔥, 💯, 😲) for audience engagement.
+
+✅ 27. In-Game Item Marketplace
+🛒 Features:
+Players can buy/sell Free Fire in-game items, such as skins, passes, emotes.
+
+Uses FireCoins (platform currency) or direct UPI/Paytm payments.
+
+Item Listing Page with filter by category, price, seller.
+
+🎨 UI/UX Design:
+Grid of items with animated hover previews.
+
+Add to Cart / Wishlist buttons.
+
+Offer negotiation via private chat.
+
+✅ 28. Community Forum & Social Hub
+🗨️ Features:
+Create and reply to posts, polls, discussions.
+
+Community tags: Announcements, Tips, Teaming Up, Help, Banter.
+
+Upvote / Downvote system.
+
+Profile badges for active users.
+
+🎨 UI/UX Design:
+Reddit-style threaded comments.
+
+Animated emoji reactions, media support (images, YouTube).
+
+User tag badges: “Pro Player”, “Admin”, “Rookie”, “Streamer”.
+
+✅ 29. Real-Time Tournament Chat / Global Chatroom
+💬 Features:
+One global lobby chat and match-specific chatrooms.
+
+Anti-spam protection and moderator access.
+
+Quick emoji support, auto-linking of team invites.
+
+🎨 UI/UX Design:
+Floating chat bubble across the app.
+
+Twitch-style real-time chat UI.
+
+Dark theme with colored usernames and roles.
+
+✅ 30. Referral Program Dashboard
+🤝 Features:
+Invite friends using referral links.
+
+Earn bonus FireCoins or entry coupons for successful referrals.
+
+Track referral earnings and conversion.
+
+🎨 UI/UX Design:
+Referral dashboard with a progress meter.
+
+Customizable invitation cards and links.
+
+Tooltip descriptions for bonuses.
+
+✅ 31. Tournament Hosting for Organizers
+⚙️ Features:
+Allow verified organizers to host their own tournaments.
+
+Organizer dashboard: Create event, set entry fee, rules, prize, and team limit.
+
+View participants, payment history, match results.
+
+🎨 UI/UX Design:
+Step-by-step event creation wizard.
+
+Host card preview (mobile and desktop view).
+
+Admin-style dashboard with charts.
+
+✅ 32. Multi-Language Support
+🌍 Features:
+Translate website content to Hindi, Bengali, Tamil, Telugu, etc.
+
+Language selector in the navbar.
+
+RTL (Right to Left) support for Arabic.
+
+🎨 UI/UX Design:
+Dropdown with flag icons and language name.
+
+Instant UI language switch with minimal reload.
+
+✅ 33. Player Stats Analyzer Tool (AI-Based)
+📊 Features:
+Upload gameplay stats and get detailed analysis.
+
+AI suggests improvement tips, strengths, and weaknesses.
+
+Leaderboard predictions based on current form.
+
+🎨 UI/UX Design:
+Stat radar chart, bar graphs, win ratio meters.
+
+AI Coach Bot with speech bubbles giving feedback.
+
+Highlight top 3 areas to improve.
+
+✅ 34. Live Countdown Banners
+⏱️ Features:
+Live countdown widgets for upcoming tournaments.
+
+Clickable to go to the tournament page.
+
+🎨 UI/UX Design:
+Neon-style digital clock display.
+
+Flashing border animation when under 1 hour left.
+
+Sticky top-bar or sidebar widget.
+
+✅ 35. Wallet-to-Wallet Transfer Feature
+💸 Features:
+Allow users to send FireCoins to other players.
+
+Daily transfer limits.
+
+OTP or PIN protected.
+
+🎨 UI/UX Design:
+Modal popup: “Enter UID or Username”, amount, and confirm.
+
+Real-time balance update.
+
+Mini transaction receipt with animation.
+
+✅ 36. Leaderboard Animation + Celebration UI
+🏆 Features:
+Top 3 players get animated trophies next to their name.
+
+Firework or sparkle effects on leaderboard reveal.
+
+Trophy room in profile to showcase wins.
+
+🎨 UI/UX Design:
+Animated SVGs for trophies.
+
+Celebration banner after tournament win.
+
+Particle effects around username.
+
+🎯 Final Notes on UX/UI Style Guidelines
+Element	Style
+Buttons	Rounded corners (2xl), shadows, hover glow
+Cards	Glassmorphic or bold solid color with border
+Icons	Lucide or Heroicons, consistent size
+Fonts	Modern, sans-serif (e.g., Inter, Poppins)
+Animations	Framer Motion for page transitions, hover
+Color Scheme	Dark theme with neon blue, red accents
+Mobile-First	All grid and layouts must adapt responsively
+Gamified UI	Progress bars, badges, XP, daily login streaks

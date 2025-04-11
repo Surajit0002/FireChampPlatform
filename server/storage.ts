@@ -1,5 +1,22 @@
-import { users, tournaments, tournamentParticipants, transactions, leaderboardEntries, referrals } from "@shared/schema";
-import type { User, InsertUser, Tournament, InsertTournament, TournamentParticipant, InsertTournamentParticipant, Transaction, InsertTransaction, LeaderboardEntry, InsertLeaderboardEntry, Referral, InsertReferral } from "@shared/schema";
+import { users, tournaments, tournamentParticipants, transactions, leaderboardEntries, referrals, teams, teamMembers, teamInvites, teamLeaderboard, chatRooms, chatMessages, forumTopics, forumReplies, marketplaceItems, marketplaceOrders } from "@shared/schema";
+import type { 
+  User, InsertUser, 
+  Tournament, InsertTournament, 
+  TournamentParticipant, InsertTournamentParticipant, 
+  Transaction, InsertTransaction, 
+  LeaderboardEntry, InsertLeaderboardEntry, 
+  Referral, InsertReferral,
+  Team, InsertTeam,
+  TeamMember, InsertTeamMember,
+  TeamInvite, InsertTeamInvite,
+  TeamLeaderboardEntry,
+  ChatRoom, InsertChatRoom,
+  ChatMessage, InsertChatMessage,
+  ForumTopic, InsertForumTopic,
+  ForumReply, InsertForumReply,
+  MarketplaceItem, InsertMarketplaceItem,
+  MarketplaceOrder
+} from "@shared/schema";
 import createMemoryStore from "memorystore";
 import session from "express-session";
 import appwriteService from "./appwrite";
@@ -42,6 +59,48 @@ export interface IStorage {
   getReferrals(referrerId: number): Promise<Referral[]>;
   updateReferralStatus(id: number, status: string, reward: number): Promise<Referral | undefined>;
   
+  // Team Management operations
+  getTeams(): Promise<Team[]>;
+  getTeam(id: number): Promise<Team | undefined>;
+  getUserTeam(userId: number): Promise<Team | undefined>;
+  createTeam(team: InsertTeam): Promise<Team>;
+  updateTeam(id: number, teamData: Partial<Team>): Promise<Team | undefined>;
+  deleteTeam(id: number): Promise<boolean>;
+  
+  // Team Members operations
+  getTeamMembers(teamId: number): Promise<TeamMember[]>;
+  getTeamMember(teamId: number, userId: number): Promise<TeamMember | undefined>;
+  addTeamMember(member: InsertTeamMember): Promise<TeamMember>;
+  updateTeamMember(id: number, memberData: Partial<TeamMember>): Promise<TeamMember | undefined>;
+  removeTeamMember(teamId: number, userId: number): Promise<boolean>;
+  findTeamCoLeader(teamId: number): Promise<TeamMember | undefined>;
+  isTeamMember(teamId: number, userId: number): Promise<boolean>;
+  
+  // Team Invites operations
+  getTeamInvites(teamId: number): Promise<TeamInvite[]>;
+  getUserInvites(userId: number): Promise<TeamInvite[]>;
+  getTeamInvite(teamId: number, userId: number): Promise<TeamInvite | undefined>;
+  getTeamInviteById(id: number): Promise<TeamInvite | undefined>;
+  createTeamInvite(invite: InsertTeamInvite): Promise<TeamInvite>;
+  updateTeamInvite(id: number, inviteData: Partial<TeamInvite>): Promise<TeamInvite | undefined>;
+  
+  // Team Leaderboard operations
+  getTeamLeaderboard(period: string): Promise<TeamLeaderboardEntry[]>;
+  updateTeamLeaderboardEntry(teamId: number, data: Partial<TeamLeaderboardEntry>): Promise<TeamLeaderboardEntry>;
+  
+  // Chat System operations
+  getChatRooms(): Promise<ChatRoom[]>;
+  getChatRoom(id: number): Promise<ChatRoom | undefined>;
+  createChatRoom(room: InsertChatRoom): Promise<ChatRoom>;
+  getChatMessages(roomId: number, limit?: number, offset?: number): Promise<ChatMessage[]>;
+  createChatMessage(message: InsertChatMessage): Promise<ChatMessage>;
+  
+  // Marketplace operations
+  getMarketplaceItems(): Promise<MarketplaceItem[]>;
+  getMarketplaceItem(id: number): Promise<MarketplaceItem | undefined>;
+  createMarketplaceItem(item: InsertMarketplaceItem): Promise<MarketplaceItem>;
+  updateMarketplaceItem(id: number, itemData: Partial<MarketplaceItem>): Promise<MarketplaceItem | undefined>;
+  
   // Session store
   sessionStore: session.SessionStore;
 }
@@ -53,6 +112,14 @@ export class MemStorage implements IStorage {
   private transactions: Map<number, Transaction>;
   private leaderboardEntries: Map<number, LeaderboardEntry>;
   private referrals: Map<number, Referral>;
+  private teams: Map<number, Team>;
+  private teamMembers: Map<number, TeamMember>;
+  private teamInvites: Map<number, TeamInvite>;
+  private teamLeaderboardEntries: Map<number, any>; // Using any for TeamLeaderboardEntry type
+  private chatRooms: Map<number, ChatRoom>;
+  private chatMessages: Map<number, ChatMessage>;
+  private marketplaceItems: Map<number, MarketplaceItem>;
+  private marketplaceOrders: Map<number, any>; // Using any for MarketplaceOrder type
   
   sessionStore: session.SessionStore;
   currentUserId: number;
@@ -61,6 +128,14 @@ export class MemStorage implements IStorage {
   currentTransactionId: number;
   currentLeaderboardEntryId: number;
   currentReferralId: number;
+  currentTeamId: number;
+  currentTeamMemberId: number;
+  currentTeamInviteId: number;
+  currentTeamLeaderboardEntryId: number;
+  currentChatRoomId: number;
+  currentChatMessageId: number;
+  currentMarketplaceItemId: number;
+  currentMarketplaceOrderId: number;
 
   constructor() {
     this.users = new Map();
