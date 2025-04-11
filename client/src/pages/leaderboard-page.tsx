@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
 import { useAuth } from "@/hooks/use-auth";
-import { Search, Trophy, Award, Medal } from "lucide-react";
+import { Search, Trophy, Award, Medal, Skull } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function LeaderboardPage() {
