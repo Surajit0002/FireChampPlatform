@@ -114,7 +114,65 @@ export default function HomePage() {
           )}
         </section>
         
-        {/* Featured Tournaments */}
+        {/* Statistics Section */}
+<section className="py-12 px-4 bg-gradient-to-br from-primary/10 to-accent/10">
+  <div className="container mx-auto">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <motion.div 
+        className="text-center"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+      >
+        <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
+          <CountUp end={50000} duration={2} prefix="₹" />
+        </div>
+        <div className="text-sm text-slate-400">Total Prize Pool</div>
+      </motion.div>
+      
+      <motion.div 
+        className="text-center"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.2 }}
+      >
+        <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
+          <CountUp end={1000} duration={2} suffix="+" />
+        </div>
+        <div className="text-sm text-slate-400">Active Players</div>
+      </motion.div>
+      
+      <motion.div 
+        className="text-center"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.4 }}
+      >
+        <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
+          <CountUp end={100} duration={2} suffix="+" />
+        </div>
+        <div className="text-sm text-slate-400">Daily Tournaments</div>
+      </motion.div>
+      
+      <motion.div 
+        className="text-center"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.6 }}
+      >
+        <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
+          <CountUp end={25000} duration={2} prefix="₹" />
+        </div>
+        <div className="text-sm text-slate-400">Paid Yesterday</div>
+      </motion.div>
+    </div>
+  </div>
+</section>
+
+{/* Featured Tournaments */}
         <section id="tournaments" className="py-12 px-4">
           <div className="container mx-auto">
             <div className="flex justify-between items-center mb-8">
@@ -163,7 +221,60 @@ export default function HomePage() {
               </Tabs>
             </div>
             
-            {/* Tournament Grid */}
+            {/* Featured Tournament Preview */}
+{featuredTournament && (
+  <div className="mb-8">
+    <motion.div 
+      className="relative rounded-2xl overflow-hidden bg-dark-light"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20" />
+      <div className="relative p-6 md:p-8">
+        <div className="flex flex-col md:flex-row items-center gap-6">
+          <div className="flex-1">
+            <div className="text-sm text-primary font-medium mb-2">Featured Tournament</div>
+            <h3 className="text-2xl font-bold mb-3">{featuredTournament.name}</h3>
+            <p className="text-slate-400 mb-4">{featuredTournament.description}</p>
+            
+            <div className="flex flex-wrap gap-4 mb-6">
+              <div className="flex items-center">
+                <Trophy className="h-5 w-5 text-primary mr-2" />
+                <span>{formatCurrency(featuredTournament.prizePool)}</span>
+              </div>
+              <div className="flex items-center">
+                <Users className="h-5 w-5 text-primary mr-2" />
+                <span>{featuredTournament.registeredPlayers}/{featuredTournament.maxPlayers}</span>
+              </div>
+              <div className="flex items-center">
+                <Clock className="h-5 w-5 text-primary mr-2" />
+                <CountdownTimer targetDate={new Date(featuredTournament.startTime)} />
+              </div>
+            </div>
+            
+            <Button 
+              size="lg"
+              onClick={() => handleJoinTournament(featuredTournament.id)}
+              className="w-full md:w-auto"
+            >
+              Join Now
+            </Button>
+          </div>
+          
+          <div className="w-full md:w-1/3">
+            <div className="aspect-video rounded-lg bg-dark overflow-hidden">
+              {/* Tournament image or placeholder */}
+              <div className="w-full h-full bg-gradient-to-br from-primary/30 to-accent/30" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  </div>
+)}
+
+{/* Tournament Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <AnimatePresence>
                 {isLoadingTournaments ? (
