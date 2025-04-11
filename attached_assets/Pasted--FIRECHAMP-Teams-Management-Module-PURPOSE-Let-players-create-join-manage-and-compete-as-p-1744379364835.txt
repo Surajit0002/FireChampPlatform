@@ -1,0 +1,199 @@
+🛡️ FIRECHAMP: Teams Management Module
+✅ PURPOSE:
+Let players create, join, manage, and compete as part of teams/squads in tournaments. Great for squads, duos, guilds, and clan-based tournaments.
+
+📑 Pages & Features:
+1. 🔍 Teams Directory Page (/teams)
+Purpose: Discover public teams or apply to join
+Sections:
+
+🔎 Search Bar to find teams by name
+
+🔖 Filters: Public / Private | Full / Open | Country / Game Mode
+
+📦 Team Cards showing:
+
+Team Logo + Name
+
+Members count
+
+Ranking / Total Wins
+
+Join Button (if open)
+
+View Details
+
+2. 🧾 Team Details Page (/teams/:id)
+Includes:
+
+🎯 Team Banner & Logo
+
+🧑‍🤝‍🧑 Members List (Leader & Role Tags)
+
+🏆 Tournament History
+
+📈 Team Stats: Total Matches, Wins, K/D, Rank
+
+📋 Team Description / Mission
+
+📨 Join Request Button (if open)
+
+🔒 Private team notice (if invite-only)
+
+3. 🏗️ Create Team Page (/teams/create)
+Form Fields:
+
+Team Name
+
+Team Logo Upload (optional)
+
+Team Banner (optional)
+
+Description / Tagline
+
+Team Type (Public / Private)
+
+Max Members (4 for squad / 2 for duo)
+
+Game Mode: TPP / FPP / Clash Squad etc.
+
+After Submission:
+
+Team is created, you become the Leader
+
+Redirect to Team Dashboard
+
+4. 🧰 My Team Dashboard (/my-team)
+Visible only if you're in a team
+
+Tabs & Features:
+
+A. 📄 Overview Tab
+Team Info
+
+Members List (Roles: Leader / Co-Leader / Player / Reserve)
+
+Stats, Achievements
+
+B. 🧑‍💻 Manage Members
+Invite via username or UID
+
+Accept/Reject Join Requests
+
+Remove / Promote / Demote members
+
+C. ⚙️ Settings
+Edit team name/logo/banner
+
+Switch privacy (public/private)
+
+Delete team (Leader only)
+
+D. 🎯 Join Tournaments as Team
+List of team-eligible tournaments
+
+Register as Team Button
+
+Choose main players from roster
+
+5. 📬 Join Requests Panel (/teams/requests)
+For Team Leaders/Co-leaders
+
+View incoming join requests
+
+Approve / Decline
+
+Message player (optional)
+
+6. 🥇 Team Leaderboard (/teams/leaderboard)
+Filters: Weekly / Monthly / All-Time
+
+Sorting: Total Wins / Matches / Kills / KDR
+
+Top 100 Teams
+
+Your Team Highlighted
+
+🌈 UI/UX Design (Tailwind + React)
+🎨 Components
+TeamCard.jsx: For teams directory
+
+TeamDetails.jsx: Page layout
+
+TeamDashboard.jsx: Full dashboard experience
+
+MemberCard.jsx: Avatar, role, remove/promotion actions
+
+TeamMatchHistory.jsx: Matches played as a team
+
+InviteModal.jsx: Invite user to team
+
+💅 Styling
+Blue + Orange color scheme
+
+Rounded avatars and team logos
+
+Badge-based roles
+
+Framer Motion for tab transitions, popups
+
+Glassmorphic overlays (optional)
+
+🔐 Roles & Permissions
+Role	Can Manage Members	Edit Team	Join Matches	Remove Team
+Leader	✅	✅	✅	✅
+Co-Leader	✅ (limited)	❌	✅	❌
+Player	❌	❌	✅	❌
+Reserve	❌	❌	❌	❌
+🔄 Dynamic Features
+✅ Real-time member changes using Socket.io or polling
+
+✅ Team Chat (optional future add-on)
+
+✅ Team Notifications (match joined, request received, etc.)
+
+✅ Rank Calculation (based on past performance)
+
+✅ Member K/D Stats aggregation
+
+✅ Show "Online Now" status for members
+
+🔧 API Integrations (Backend Suggestions)
+POST /teams/create
+
+GET /teams
+
+GET /teams/:id
+
+POST /teams/:id/join
+
+POST /teams/:id/invite
+
+PUT /teams/:id/promote
+
+DELETE /teams/:id/remove/:playerId
+
+GET /teams/:id/requests
+
+GET /teams/leaderboard
+
+📲 Mobile Responsive Layout
+Team dashboard with sliding tabs
+
+Bottom sticky nav for “Join Match”, “Edit”, “Settings”
+
+Expand/collapse member list
+
+Scrollable team history
+
+🏁 Bonus Add-ons (Optional)
+🎯 "Featured Teams" on homepage
+
+🧩 Team Achievements Badges (UI)
+
+💬 Team Chatroom (next-level)
+
+🎨 Upload Custom Jersey Image
+
+🧠 AI-based Player Role Suggestion (Leader, Fragger, Support)
+
