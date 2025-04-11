@@ -105,33 +105,68 @@ export default function MyTeamPage() {
 
             <TabsContent value="members">
               <div className="space-y-4">
-                {team.members.map((member) => (
-                  <motion.div 
-                    key={member.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-dark rounded-xl p-4 flex items-center justify-between"
-                  >
-                    <div className="flex items-center gap-4">
-                      <Avatar>
-                        <AvatarImage src={member.avatar} />
-                        <AvatarFallback>{member.username.substring(0, 2).toUpperCase()}</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <p className="font-bold">{member.username}</p>
-                        <div className="flex items-center gap-2">
-                          <Badge variant="outline">{member.role}</Badge>
-                          {member.isOnline && (
-                            <Badge variant="secondary" className="bg-green-500/20 text-green-500">Online</Badge>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                    {team.userRole === "leader" && member.role !== "leader" && (
-                      <Button variant="ghost" size="sm">Remove</Button>
-                    )}
-                  </motion.div>
-                ))}
+                <div className="space-y-4">
+                  {team.members.map((member) => (
+                    <TeamMemberCard
+                      key={member.id}
+                      member={{
+                        ...member,
+                        uid: member.id,
+                        stats: {
+                          matches: member.stats?.totalMatches || 0,
+                          wins: member.stats?.wins || 0,
+                          kd: member.stats?.kd || 0
+                        }
+                      }}
+                      isLeader={team.userRole === "leader"}
+                      onPromote={async (uid) => {
+                        try {
+                          await fetch(`/api/teams/${team.id}/members/${uid}/promote`, {
+                            method: 'POST'
+                          });
+                          // Refetch team data
+                          queryClient.invalidateQueries(['/api/my-team']);
+                        } catch (error) {
+                          toast({
+                            title: "Error",
+                            description: "Failed to promote member",
+                            variant: "destructive"
+                          });
+                        }
+                      }}
+                      onDemote={async (uid) => {
+                        try {
+                          await fetch(`/api/teams/${team.id}/members/${uid}/demote`, {
+                            method: 'POST'
+                          });
+                          // Refetch team data
+                          queryClient.invalidateQueries(['/api/my-team']);
+                        } catch (error) {
+                          toast({
+                            title: "Error",
+                            description: "Failed to demote member",
+                            variant: "destructive"
+                          });
+                        }
+                      }}
+                      onRemove={async (uid) => {
+                        try {
+                          await fetch(`/api/teams/${team.id}/members/${uid}`, {
+                            method: 'DELETE'
+                          });
+                          // Refetch team data
+                          queryClient.invalidateQueries(['/api/my-team']);
+                        } catch (error) {
+                          toast({
+                            title: "Error",
+                            description: "Failed to remove member",
+                            variant: "destructive"
+                          });
+                        }
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
             </TabsContent>
 

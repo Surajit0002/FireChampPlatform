@@ -426,41 +426,30 @@ export default function CreateTeamPage() {
                       </div>
                     </div>
 
-                    <div className="space-y-2">
-                      {members.map((member) => (
-                        <div
-                          key={member.uid}
-                          className="flex items-center justify-between bg-slate-800 rounded-lg p-3"
-                        >
-                          <div className="flex items-center gap-3">
-                            <Avatar>
-                              <AvatarImage src={`https://api.dicebear.com/7.x/pixel-art/svg?seed=${member.uid}`} />
-                              <AvatarFallback>{member.username.substring(0, 2).toUpperCase()}</AvatarFallback>
-                            </Avatar>
-                            <div>
-                              <p className="font-medium">{member.username}</p>
-                              <TooltipProvider>
-                                <Tooltip>
-                                  <TooltipTrigger>
-                                    <p className="text-sm text-slate-400 capitalize">{member.role}</p>
-                                  </TooltipTrigger>
-                                  <TooltipContent>
-                                    <p>{roleDescriptions[member.role as keyof typeof roleDescriptions]}</p>
-                                  </TooltipContent>
-                                </Tooltip>
-                              </TooltipProvider>
-                            </div>
-                          </div>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => handleRemoveMember(member.uid)}
-                          >
-                            <X className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
+                    <AnimatePresence>
+                      <div className="space-y-4">
+                        {members.map((member) => (
+                          <TeamMemberCard
+                            key={member.uid}
+                            member={member}
+                            isLeader={true}
+                            onRemove={handleRemoveMember}
+                            onPromote={(uid) => {
+                              const updatedMembers = members.map(m => 
+                                m.uid === uid ? { ...m, role: 'co-leader' } : m
+                              );
+                              setMembers(updatedMembers);
+                            }}
+                            onDemote={(uid) => {
+                              const updatedMembers = members.map(m =>
+                                m.uid === uid ? { ...m, role: 'member' } : m
+                              );
+                              setMembers(updatedMembers);
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </AnimatePresence>
                   </CardContent>
                 </Card>
 
