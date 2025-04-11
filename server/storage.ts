@@ -437,4 +437,563 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+export class AppwriteStorage implements IStorage {
+  sessionStore: any; // Need to define the session store type
+
+  constructor() {
+    this.sessionStore = new MemoryStore({
+      checkPeriod: 86400000 // 24 hours
+    });
+    
+    // Create demo data only if configured
+    if (process.env.CREATE_DEMO_DATA === 'true') {
+      this.createDemoData();
+    }
+  }
+
+  private async createDemoData() {
+    try {
+      console.log("Creating demo data in Appwrite...");
+      // We'll implement the demo data creation later
+      await this.createDemoTournaments();
+      await this.createDemoLeaderboard();
+      console.log("Demo data created successfully!");
+    } catch (error) {
+      console.error("Error creating demo data:", error);
+    }
+  }
+
+  private async createDemoTournaments() {
+    const now = new Date();
+    
+    // Tournament data similar to MemStorage demo data
+    const tournamentData = [
+      {
+        name: "FireStorm Solo Championship",
+        description: "Compete in this high-stakes solo battle to win big prizes. Show your skills and claim the crown!",
+        startTime: new Date(now.getTime() + 3600000 * 5), // 5 hours from now
+        entryFee: 50,
+        prizePool: 5000,
+        perKillReward: 20,
+        maxPlayers: 100,
+        mode: "solo",
+        map: "Bermuda",
+        status: "upcoming",
+        rules: "1. Check-in 15 minutes before start time. 2. No teaming. 3. Screenshot your results.",
+        image: "",
+        roomId: "57821",
+        roomPassword: "fire123"
+      },
+      {
+        name: "Desert Duos Showdown",
+        description: "Find a partner and dominate the Kalahari desert in this duo tournament with special weapon drops.",
+        startTime: new Date(now.getTime() + 3600000 * 10), // 10 hours from now
+        entryFee: 75,
+        prizePool: 7500,
+        perKillReward: 25,
+        maxPlayers: 50,
+        mode: "duo",
+        map: "Kalahari",
+        status: "upcoming",
+        rules: "1. Team registration required. 2. Fair play rules enforced. 3. Streamers must have delay.",
+        image: "",
+        roomId: "43789",
+        roomPassword: "duos789"
+      },
+      // Add more tournaments here...
+    ];
+
+    for (const tournament of tournamentData) {
+      await this.createTournament(tournament);
+    }
+  }
+
+  private async createDemoLeaderboard() {
+    const periods = ["daily", "weekly", "monthly", "all-time"];
+    
+    // Create 20 leaderboard entries for each period
+    for (const period of periods) {
+      for (let i = 1; i <= 20; i++) {
+        await this.updateLeaderboardEntry({
+          userId: i,
+          kills: Math.floor(Math.random() * 50) + 10,
+          wins: Math.floor(Math.random() * 10) + 1,
+          earnings: (Math.floor(Math.random() * 500) + 100) * 10,
+          tournamentCount: Math.floor(Math.random() * 20) + 5,
+          period
+        });
+      }
+    }
+  }
+
+  // User operations
+  async getUser(id: number): Promise<User | undefined> {
+    try {
+      const user = await appwriteService.findDocumentByAttribute(
+        appwriteService.collections.users,
+        'id',
+        id
+      );
+      return user ? user as User : undefined;
+    } catch (error) {
+      console.error("Error getting user:", error);
+      return undefined;
+    }
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    try {
+      const user = await appwriteService.findDocumentByAttribute(
+        appwriteService.collections.users,
+        'username',
+        username
+      );
+      return user ? user as User : undefined;
+    } catch (error) {
+      console.error("Error getting user by username:", error);
+      return undefined;
+    }
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    try {
+      // Generate a unique ID for the user
+      const id = Date.now();
+      const referralCode = this.generateReferralCode();
+      
+      const userData = {
+        ...insertUser,
+        id,
+        balance: 0,
+        coins: 100,
+        referralCode,
+        createdAt: new Date()
+      };
+      
+      const createdUser = await appwriteService.createDocument(
+        appwriteService.collections.users,
+        userData
+      );
+      
+      return createdUser as unknown as User;
+    } catch (error) {
+      console.error("Error creating user:", error);
+      throw error;
+    }
+  }
+
+  async updateUser(id: number, userData: Partial<User>): Promise<User | undefined> {
+    try {
+      // First, get the user document ID
+      const user = await this.getUser(id);
+      if (!user || !user.$id) return undefined;
+      
+      const updatedUser = await appwriteService.updateDocument(
+        appwriteService.collections.users,
+        user.$id,
+        userData
+      );
+      
+      return updatedUser as unknown as User;
+    } catch (error) {
+      console.error("Error updating user:", error);
+      return undefined;
+    }
+  }
+  
+  // Tournament operations
+  async getTournaments(): Promise<Tournament[]> {
+    try {
+      const response = await appwriteService.listDocuments(
+        appwriteService.collections.tournaments
+      );
+      
+      return response.documents as unknown as Tournament[];
+    } catch (error) {
+      console.error("Error getting tournaments:", error);
+      return [];
+    }
+  }
+  
+  async getTournament(id: number): Promise<Tournament | undefined> {
+    try {
+      const tournament = await appwriteService.findDocumentByAttribute(
+        appwriteService.collections.tournaments,
+        'id',
+        id
+      );
+      
+      return tournament ? tournament as unknown as Tournament : undefined;
+    } catch (error) {
+      console.error("Error getting tournament:", error);
+      return undefined;
+    }
+  }
+  
+  async createTournament(tournament: InsertTournament): Promise<Tournament> {
+    try {
+      // Generate a unique ID for the tournament
+      const id = Date.now();
+      
+      const tournamentData = {
+        ...tournament,
+        id,
+        createdAt: new Date()
+      };
+      
+      const createdTournament = await appwriteService.createDocument(
+        appwriteService.collections.tournaments,
+        tournamentData
+      );
+      
+      return createdTournament as unknown as Tournament;
+    } catch (error) {
+      console.error("Error creating tournament:", error);
+      throw error;
+    }
+  }
+  
+  async updateTournament(id: number, tournamentData: Partial<Tournament>): Promise<Tournament | undefined> {
+    try {
+      // First, get the tournament document ID
+      const tournament = await this.getTournament(id);
+      if (!tournament || !tournament.$id) return undefined;
+      
+      const updatedTournament = await appwriteService.updateDocument(
+        appwriteService.collections.tournaments,
+        tournament.$id,
+        tournamentData
+      );
+      
+      return updatedTournament as unknown as Tournament;
+    } catch (error) {
+      console.error("Error updating tournament:", error);
+      return undefined;
+    }
+  }
+  
+  async deleteTournament(id: number): Promise<boolean> {
+    try {
+      // First, get the tournament document ID
+      const tournament = await this.getTournament(id);
+      if (!tournament || !tournament.$id) return false;
+      
+      await appwriteService.deleteDocument(
+        appwriteService.collections.tournaments,
+        tournament.$id
+      );
+      
+      return true;
+    } catch (error) {
+      console.error("Error deleting tournament:", error);
+      return false;
+    }
+  }
+  
+  // Tournament Participants operations
+  async getTournamentParticipants(tournamentId: number): Promise<TournamentParticipant[]> {
+    try {
+      const response = await appwriteService.advancedSearch(
+        appwriteService.collections.tournamentParticipants,
+        [Query.equal('tournamentId', tournamentId)]
+      );
+      
+      return response.documents as unknown as TournamentParticipant[];
+    } catch (error) {
+      console.error("Error getting tournament participants:", error);
+      return [];
+    }
+  }
+  
+  async getTournamentParticipant(tournamentId: number, userId: number): Promise<TournamentParticipant | undefined> {
+    try {
+      const response = await appwriteService.advancedSearch(
+        appwriteService.collections.tournamentParticipants,
+        [
+          Query.equal('tournamentId', tournamentId),
+          Query.equal('userId', userId)
+        ]
+      );
+      
+      return response.documents.length > 0 
+        ? response.documents[0] as unknown as TournamentParticipant 
+        : undefined;
+    } catch (error) {
+      console.error("Error getting tournament participant:", error);
+      return undefined;
+    }
+  }
+  
+  async joinTournament(participant: InsertTournamentParticipant): Promise<TournamentParticipant> {
+    try {
+      // Generate a unique ID for the participant
+      const id = Date.now();
+      
+      const participantData = {
+        ...participant,
+        id,
+        kills: 0,
+        rank: null,
+        status: 'registered',
+        joinedAt: new Date()
+      };
+      
+      const createdParticipant = await appwriteService.createDocument(
+        appwriteService.collections.tournamentParticipants,
+        participantData
+      );
+      
+      return createdParticipant as unknown as TournamentParticipant;
+    } catch (error) {
+      console.error("Error joining tournament:", error);
+      throw error;
+    }
+  }
+  
+  async updateTournamentParticipant(id: number, participantData: Partial<TournamentParticipant>): Promise<TournamentParticipant | undefined> {
+    try {
+      // First, find the participant document by its ID
+      const participant = await appwriteService.findDocumentByAttribute(
+        appwriteService.collections.tournamentParticipants,
+        'id',
+        id
+      );
+      
+      if (!participant || !participant.$id) return undefined;
+      
+      const updatedParticipant = await appwriteService.updateDocument(
+        appwriteService.collections.tournamentParticipants,
+        participant.$id,
+        participantData
+      );
+      
+      return updatedParticipant as unknown as TournamentParticipant;
+    } catch (error) {
+      console.error("Error updating tournament participant:", error);
+      return undefined;
+    }
+  }
+  
+  async withdrawFromTournament(tournamentId: number, userId: number): Promise<boolean> {
+    try {
+      // Find the participant
+      const participant = await this.getTournamentParticipant(tournamentId, userId);
+      if (!participant || !participant.$id) return false;
+      
+      // Delete the participant document
+      await appwriteService.deleteDocument(
+        appwriteService.collections.tournamentParticipants,
+        participant.$id
+      );
+      
+      return true;
+    } catch (error) {
+      console.error("Error withdrawing from tournament:", error);
+      return false;
+    }
+  }
+  
+  // Transaction operations
+  async getTransactions(userId: number): Promise<Transaction[]> {
+    try {
+      const response = await appwriteService.advancedSearch(
+        appwriteService.collections.transactions,
+        [
+          Query.equal('userId', userId),
+          Query.orderDesc('createdAt')
+        ]
+      );
+      
+      return response.documents as unknown as Transaction[];
+    } catch (error) {
+      console.error("Error getting transactions:", error);
+      return [];
+    }
+  }
+  
+  async createTransaction(transaction: InsertTransaction): Promise<Transaction> {
+    try {
+      // Generate a unique ID for the transaction
+      const id = Date.now();
+      
+      const transactionData = {
+        ...transaction,
+        id,
+        createdAt: new Date()
+      };
+      
+      const createdTransaction = await appwriteService.createDocument(
+        appwriteService.collections.transactions,
+        transactionData
+      );
+      
+      // Update user balance if transaction is completed
+      if (transaction.status === 'completed') {
+        const user = await this.getUser(transaction.userId);
+        if (user) {
+          let newBalance = user.balance || 0;
+          
+          // Different types of transactions affect the balance differently
+          if (transaction.type === 'deposit' || transaction.type === 'tournament_win' || transaction.type === 'referral') {
+            newBalance += transaction.amount;
+          } else if (transaction.type === 'withdrawal' || transaction.type === 'tournament_entry') {
+            newBalance -= transaction.amount;
+          }
+          
+          await this.updateUser(user.id, { balance: newBalance });
+        }
+      }
+      
+      return createdTransaction as unknown as Transaction;
+    } catch (error) {
+      console.error("Error creating transaction:", error);
+      throw error;
+    }
+  }
+  
+  // Leaderboard operations
+  async getLeaderboard(period: string): Promise<LeaderboardEntry[]> {
+    try {
+      const response = await appwriteService.advancedSearch(
+        appwriteService.collections.leaderboardEntries,
+        [Query.equal('period', period)]
+      );
+      
+      // Sort by kills and wins
+      const entries = response.documents as unknown as LeaderboardEntry[];
+      return entries.sort((a, b) => {
+        const killsDiff = (b.kills || 0) - (a.kills || 0);
+        if (killsDiff !== 0) return killsDiff;
+        return (b.wins || 0) - (a.wins || 0);
+      });
+    } catch (error) {
+      console.error("Error getting leaderboard:", error);
+      return [];
+    }
+  }
+  
+  async updateLeaderboardEntry(entry: InsertLeaderboardEntry): Promise<LeaderboardEntry> {
+    try {
+      // Check if entry already exists
+      const response = await appwriteService.advancedSearch(
+        appwriteService.collections.leaderboardEntries,
+        [
+          Query.equal('userId', entry.userId),
+          Query.equal('period', entry.period)
+        ]
+      );
+      
+      if (response.documents.length > 0) {
+        // Update existing entry
+        const existingEntry = response.documents[0];
+        const updatedData = {
+          kills: entry.kills !== undefined ? entry.kills : existingEntry.kills,
+          wins: entry.wins !== undefined ? entry.wins : existingEntry.wins,
+          earnings: entry.earnings !== undefined ? entry.earnings : existingEntry.earnings,
+          tournamentCount: entry.tournamentCount !== undefined ? entry.tournamentCount : existingEntry.tournamentCount,
+          updatedAt: new Date()
+        };
+        
+        const updatedEntry = await appwriteService.updateDocument(
+          appwriteService.collections.leaderboardEntries,
+          existingEntry.$id,
+          updatedData
+        );
+        
+        return updatedEntry as unknown as LeaderboardEntry;
+      } else {
+        // Create new entry
+        const id = Date.now();
+        
+        const newEntryData = {
+          ...entry,
+          id,
+          updatedAt: new Date()
+        };
+        
+        const createdEntry = await appwriteService.createDocument(
+          appwriteService.collections.leaderboardEntries,
+          newEntryData
+        );
+        
+        return createdEntry as unknown as LeaderboardEntry;
+      }
+    } catch (error) {
+      console.error("Error updating leaderboard entry:", error);
+      throw error;
+    }
+  }
+  
+  // Referral operations
+  async createReferral(referral: InsertReferral): Promise<Referral> {
+    try {
+      // Generate a unique ID for the referral
+      const id = Date.now();
+      
+      const referralData = {
+        ...referral,
+        id,
+        status: referral.status || 'pending',
+        reward: referral.reward || 0,
+        createdAt: new Date()
+      };
+      
+      const createdReferral = await appwriteService.createDocument(
+        appwriteService.collections.referrals,
+        referralData
+      );
+      
+      return createdReferral as unknown as Referral;
+    } catch (error) {
+      console.error("Error creating referral:", error);
+      throw error;
+    }
+  }
+  
+  async getReferrals(referrerId: number): Promise<Referral[]> {
+    try {
+      const response = await appwriteService.advancedSearch(
+        appwriteService.collections.referrals,
+        [Query.equal('referrerId', referrerId)]
+      );
+      
+      return response.documents as unknown as Referral[];
+    } catch (error) {
+      console.error("Error getting referrals:", error);
+      return [];
+    }
+  }
+  
+  async updateReferralStatus(id: number, status: string, reward: number): Promise<Referral | undefined> {
+    try {
+      // Find the referral document by its ID
+      const referral = await appwriteService.findDocumentByAttribute(
+        appwriteService.collections.referrals,
+        'id',
+        id
+      );
+      
+      if (!referral || !referral.$id) return undefined;
+      
+      const updatedReferral = await appwriteService.updateDocument(
+        appwriteService.collections.referrals,
+        referral.$id,
+        { status, reward }
+      );
+      
+      return updatedReferral as unknown as Referral;
+    } catch (error) {
+      console.error("Error updating referral status:", error);
+      return undefined;
+    }
+  }
+  
+  private generateReferralCode(): string {
+    return Math.random().toString(36).substring(2, 10).toUpperCase();
+  }
+}
+
+// Use Appwrite storage for production, MemStorage for local development
+export const storage = process.env.USE_APPWRITE === 'true' 
+  ? new AppwriteStorage() 
+  : new MemStorage();

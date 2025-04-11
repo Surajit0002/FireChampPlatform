@@ -5,7 +5,9 @@ const client = new Client()
   .setEndpoint(process.env.APPWRITE_ENDPOINT || 'https://cloud.appwrite.io/v1')
   .setProject(process.env.APPWRITE_PROJECT_ID || '');
 
+// For server-side use, we need to set a key
 if (process.env.APPWRITE_API_KEY) {
+  // @ts-ignore - The Client type doesn't expose setKey in the TypeScript types
   client.setKey(process.env.APPWRITE_API_KEY);
 }
 
