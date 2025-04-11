@@ -3,6 +3,7 @@ import CountUp from "react-countup";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
 import { Tournament } from "@shared/schema";
+import { formatCurrency } from "@/lib/utils";
 import { AppHeader } from "@/components/layout/app-header";
 import { AppFooter } from "@/components/layout/app-footer";
 import { TournamentCard } from "@/components/ui/tournament-card";
