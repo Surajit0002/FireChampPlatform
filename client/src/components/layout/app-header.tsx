@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -18,7 +18,7 @@ import { WalletData } from "@/types";
 
 export function AppHeader() {
   const { user, logoutMutation } = useAuth();
-  
+
   const { data: walletData } = useQuery<WalletData>({
     queryKey: ["/api/wallet"],
     enabled: !!user,
@@ -36,17 +36,45 @@ export function AppHeader() {
           <div className="relative w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
             <span className="absolute text-white font-bold text-lg">FC</span>
           </div>
-          <span className="font-heading font-bold text-xl tracking-tight">FireChamp</span>
+          <span className="font-heading font-bold text-xl tracking-tight">
+            FireChamp
+          </span>
         </Link>
-        
+
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <Link href="/" className="font-medium hover:text-primary-light transition-colors">Home</Link>
-          <Link href="/tournaments" className="font-medium hover:text-primary-light transition-colors">Tournaments</Link>
-          <Link href="/leaderboard" className="font-medium hover:text-primary-light transition-colors">Leaderboard</Link>
-          <Link href="/refer" className="font-medium hover:text-primary-light transition-colors">Refer & Earn</Link>
+          <Link
+            href="/"
+            className="font-medium hover:text-primary-light transition-colors"
+          >
+            Home
+          </Link>
+          <Link
+            href="/tournaments"
+            className="font-medium hover:text-primary-light transition-colors"
+          >
+            Tournaments
+          </Link>
+          <Link
+            href="/leaderboard"
+            className="font-medium hover:text-primary-light transition-colors"
+          >
+            Leaderboard
+          </Link>
+          <Link
+            href="/refer"
+            className="font-medium hover:text-primary-light transition-colors"
+          >
+            Refer & Earn
+          </Link>
+          <Link
+            href="/teams"
+            className="font-medium hover:text-primary-light transition-colors"
+          >
+            Teams
+          </Link>
         </nav>
-        
+
         {/* User Controls */}
         <div className="flex items-center space-x-3">
           {user ? (
@@ -57,42 +85,59 @@ export function AppHeader() {
                   <WalletModal walletData={walletData} />
                 </div>
               )}
-              
+
               {/* Notifications */}
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent flex items-center justify-center text-xs font-bold">3</span>
+                <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent flex items-center justify-center text-xs font-bold">
+                  3
+                </span>
               </Button>
-              
+
               {/* User */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+                  <Button
+                    variant="ghost"
+                    className="relative h-9 w-9 rounded-full"
+                  >
                     <Avatar className="h-9 w-9 border-2 border-primary">
-                      <AvatarImage src={user.avatar || ''} alt={user.username} />
+                      <AvatarImage
+                        src={user.avatar || ""}
+                        alt={user.username}
+                      />
                       <AvatarFallback className="bg-primary-dark">
                         {user.username.substring(0, 2).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="bg-dark border-slate-700">
+                <DropdownMenuContent
+                  align="end"
+                  className="bg-dark border-slate-700"
+                >
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-slate-700" />
                   <DropdownMenuItem asChild>
-                    <Link href="/profile" className="cursor-pointer flex items-center">
+                    <Link
+                      href="/profile"
+                      className="cursor-pointer flex items-center"
+                    >
                       <User className="mr-2 h-4 w-4" />
                       <span>Profile</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/wallet" className="cursor-pointer flex items-center">
+                    <Link
+                      href="/wallet"
+                      className="cursor-pointer flex items-center"
+                    >
                       <Settings className="mr-2 h-4 w-4" />
                       <span>Wallet</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-slate-700" />
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     onClick={handleLogout}
                     className="cursor-pointer text-red-500 focus:text-red-500"
                   >
@@ -109,7 +154,7 @@ export function AppHeader() {
           )}
         </div>
       </div>
-      
+
       {/* Mobile Navigation */}
       <MobileNav user={user} />
     </header>

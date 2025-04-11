@@ -10,6 +10,7 @@ import ProfilePage from "@/pages/profile-page";
 import WalletPage from "@/pages/wallet-page";
 import ReferralPage from "@/pages/referral-page";
 import { ProtectedRoute } from "@/lib/protected-route";
+import TeamsPage from "@/pages/teams-page";
 
 function Router() {
   return (
@@ -22,6 +23,7 @@ function Router() {
       <ProtectedRoute path="/profile" component={ProfilePage} />
       <ProtectedRoute path="/wallet" component={WalletPage} />
       <ProtectedRoute path="/refer" component={ReferralPage} />
+      <Route path="/teams" component={TeamsPage} />
       <Route component={NotFound} />
     </Switch>
   );
