@@ -790,20 +790,6 @@ export class MemStorage implements IStorage {
   private generateReferralCode(): string {
     return Math.random().toString(36).substring(2, 10).toUpperCase();
   }
-
-  // Team Management operations
-  async getTeams(): Promise<Team[]> {
-    try {
-      const response = await appwriteService.listDocuments(
-        appwriteService.collections.teams
-      );
-      
-      return response.documents as unknown as Team[];
-    } catch (error) {
-      console.error("Error getting teams:", error);
-      return [];
-    }
-  }
 }
 
 export class AppwriteStorage implements IStorage {
@@ -1359,20 +1345,6 @@ export class AppwriteStorage implements IStorage {
   
   private generateReferralCode(): string {
     return Math.random().toString(36).substring(2, 10).toUpperCase();
-  }
-
-  // Team Management operations
-  async getTeams(): Promise<Team[]> {
-    try {
-      const response = await appwriteService.listDocuments(
-        appwriteService.collections.teams
-      );
-      
-      return response.documents as unknown as Team[];
-    } catch (error) {
-      console.error("Error getting teams:", error);
-      return [];
-    }
   }
 }
 

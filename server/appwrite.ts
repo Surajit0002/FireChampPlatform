@@ -22,7 +22,21 @@ const collections = {
   tournamentParticipants: process.env.APPWRITE_PARTICIPANTS_COLLECTION_ID || 'tournament_participants',
   transactions: process.env.APPWRITE_TRANSACTIONS_COLLECTION_ID || 'transactions',
   leaderboardEntries: process.env.APPWRITE_LEADERBOARD_COLLECTION_ID || 'leaderboard_entries',
-  referrals: process.env.APPWRITE_REFERRALS_COLLECTION_ID || 'referrals'
+  referrals: process.env.APPWRITE_REFERRALS_COLLECTION_ID || 'referrals',
+  
+  // Team management collections
+  teams: process.env.APPWRITE_TEAMS_COLLECTION_ID || 'teams',
+  teamMembers: process.env.APPWRITE_TEAM_MEMBERS_COLLECTION_ID || 'team_members',
+  teamInvites: process.env.APPWRITE_TEAM_INVITES_COLLECTION_ID || 'team_invites',
+  teamLeaderboard: process.env.APPWRITE_TEAM_LEADERBOARD_COLLECTION_ID || 'team_leaderboard',
+  
+  // Chat system collections
+  chatRooms: process.env.APPWRITE_CHAT_ROOMS_COLLECTION_ID || 'chat_rooms',
+  chatMessages: process.env.APPWRITE_CHAT_MESSAGES_COLLECTION_ID || 'chat_messages',
+  
+  // Marketplace collections
+  marketplaceItems: process.env.APPWRITE_MARKETPLACE_ITEMS_COLLECTION_ID || 'marketplace_items',
+  marketplaceOrders: process.env.APPWRITE_MARKETPLACE_ORDERS_COLLECTION_ID || 'marketplace_orders'
 };
 
 // Helper functions for common operations
@@ -125,6 +139,32 @@ export const appwriteService = {
       );
     } catch (error) {
       console.error(`Error performing advanced search in ${collectionId}:`, error);
+      return { documents: [] };
+    }
+  },
+  
+  // List documents with query, pagination and sorting
+  async listDocumentsWithQuery(
+    collectionId: string, 
+    queries: Array<any> = [], 
+    limit: number = 100, 
+    offset: number = 0,
+    orderField: string = 'createdAt',
+    orderType: 'asc' | 'desc' = 'desc'
+  ) {
+    try {
+      return await databases.listDocuments(
+        databaseId,
+        collectionId,
+        [
+          ...queries,
+          Query.limit(limit),
+          Query.offset(offset),
+          Query.orderBy(orderField, orderType)
+        ]
+      );
+    } catch (error) {
+      console.error(`Error listing documents with query in ${collectionId}:`, error);
       return { documents: [] };
     }
   },
