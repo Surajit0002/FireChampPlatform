@@ -144,6 +144,14 @@ export class MemStorage implements IStorage {
     this.transactions = new Map();
     this.leaderboardEntries = new Map();
     this.referrals = new Map();
+    this.teams = new Map();
+    this.teamMembers = new Map();
+    this.teamInvites = new Map();
+    this.teamLeaderboardEntries = new Map();
+    this.chatRooms = new Map();
+    this.chatMessages = new Map();
+    this.marketplaceItems = new Map();
+    this.marketplaceOrders = new Map();
     
     this.currentUserId = 1;
     this.currentTournamentId = 1;
@@ -151,6 +159,14 @@ export class MemStorage implements IStorage {
     this.currentTransactionId = 1;
     this.currentLeaderboardEntryId = 1;
     this.currentReferralId = 1;
+    this.currentTeamId = 1;
+    this.currentTeamMemberId = 1;
+    this.currentTeamInviteId = 1;
+    this.currentTeamLeaderboardEntryId = 1;
+    this.currentChatRoomId = 1;
+    this.currentChatMessageId = 1;
+    this.currentMarketplaceItemId = 1;
+    this.currentMarketplaceOrderId = 1;
     
     this.sessionStore = new MemoryStore({
       checkPeriod: 86400000 // 24 hours
@@ -504,6 +520,270 @@ export class MemStorage implements IStorage {
     const updatedReferral = { ...existingReferral, status, reward };
     this.referrals.set(id, updatedReferral);
     return updatedReferral;
+  }
+  
+  // Team Management operations
+  async getTeams(): Promise<Team[]> {
+    return Array.from(this.teams.values());
+  }
+  
+  async getTeam(id: number): Promise<Team | undefined> {
+    return this.teams.get(id);
+  }
+  
+  async getUserTeam(userId: number): Promise<Team | undefined> {
+    // Find the user's team based on the user's teamId
+    const user = await this.getUser(userId);
+    if (!user || !user.teamId) return undefined;
+    return this.getTeam(user.teamId);
+  }
+  
+  async createTeam(team: InsertTeam): Promise<Team> {
+    const id = this.currentTeamId++;
+    const newTeam: Team = { 
+      ...team, 
+      id, 
+      memberCount: 1, // Starting with the leader
+      createdAt: new Date()
+    };
+    this.teams.set(id, newTeam);
+    return newTeam;
+  }
+  
+  async updateTeam(id: number, teamData: Partial<Team>): Promise<Team | undefined> {
+    const existingTeam = this.teams.get(id);
+    if (!existingTeam) return undefined;
+    
+    const updatedTeam = { ...existingTeam, ...teamData };
+    this.teams.set(id, updatedTeam);
+    return updatedTeam;
+  }
+  
+  async deleteTeam(id: number): Promise<boolean> {
+    // First, delete all team members and invites
+    const members = await this.getTeamMembers(id);
+    for (const member of members) {
+      await this.removeTeamMember(id, member.userId);
+    }
+    
+    const invites = await this.getTeamInvites(id);
+    for (const invite of invites) {
+      await this.updateTeamInvite(invite.id, { status: "cancelled" });
+    }
+    
+    return this.teams.delete(id);
+  }
+  
+  // Team Members operations
+  async getTeamMembers(teamId: number): Promise<TeamMember[]> {
+    return Array.from(this.teamMembers.values())
+      .filter(member => member.teamId === teamId);
+  }
+  
+  async getTeamMember(teamId: number, userId: number): Promise<TeamMember | undefined> {
+    return Array.from(this.teamMembers.values())
+      .find(member => member.teamId === teamId && member.userId === userId);
+  }
+  
+  async addTeamMember(member: InsertTeamMember): Promise<TeamMember> {
+    const id = this.currentTeamMemberId++;
+    const newMember: TeamMember = { 
+      ...member, 
+      id, 
+      joinedAt: new Date() 
+    };
+    this.teamMembers.set(id, newMember);
+    
+    // Update team member count
+    const team = this.teams.get(member.teamId);
+    if (team) {
+      team.memberCount = (team.memberCount || 0) + 1;
+      this.teams.set(team.id, team);
+    }
+    
+    return newMember;
+  }
+  
+  async updateTeamMember(id: number, memberData: Partial<TeamMember>): Promise<TeamMember | undefined> {
+    const existingMember = this.teamMembers.get(id);
+    if (!existingMember) return undefined;
+    
+    const updatedMember = { ...existingMember, ...memberData };
+    this.teamMembers.set(id, updatedMember);
+    return updatedMember;
+  }
+  
+  async removeTeamMember(teamId: number, userId: number): Promise<boolean> {
+    const member = Array.from(this.teamMembers.values())
+      .find(m => m.teamId === teamId && m.userId === userId);
+    
+    if (!member) return false;
+    
+    // Update team member count
+    const team = this.teams.get(teamId);
+    if (team && team.memberCount && team.memberCount > 0) {
+      team.memberCount--;
+      this.teams.set(team.id, team);
+    }
+    
+    return this.teamMembers.delete(member.id);
+  }
+  
+  async findTeamCoLeader(teamId: number): Promise<TeamMember | undefined> {
+    return Array.from(this.teamMembers.values())
+      .find(member => member.teamId === teamId && member.role === "co-leader");
+  }
+  
+  async isTeamMember(teamId: number, userId: number): Promise<boolean> {
+    return !!await this.getTeamMember(teamId, userId);
+  }
+  
+  // Team Invites operations
+  async getTeamInvites(teamId: number): Promise<TeamInvite[]> {
+    return Array.from(this.teamInvites.values())
+      .filter(invite => invite.teamId === teamId && invite.status === "pending");
+  }
+  
+  async getUserInvites(userId: number): Promise<TeamInvite[]> {
+    return Array.from(this.teamInvites.values())
+      .filter(invite => invite.userId === userId && invite.status === "pending");
+  }
+  
+  async getTeamInvite(teamId: number, userId: number): Promise<TeamInvite | undefined> {
+    return Array.from(this.teamInvites.values())
+      .find(invite => invite.teamId === teamId && invite.userId === userId && invite.status === "pending");
+  }
+  
+  async getTeamInviteById(id: number): Promise<TeamInvite | undefined> {
+    return this.teamInvites.get(id);
+  }
+  
+  async createTeamInvite(invite: InsertTeamInvite): Promise<TeamInvite> {
+    const id = this.currentTeamInviteId++;
+    const newInvite: TeamInvite = { 
+      ...invite, 
+      id, 
+      status: "pending", 
+      createdAt: new Date()
+    };
+    this.teamInvites.set(id, newInvite);
+    return newInvite;
+  }
+  
+  async updateTeamInvite(id: number, inviteData: Partial<TeamInvite>): Promise<TeamInvite | undefined> {
+    const existingInvite = this.teamInvites.get(id);
+    if (!existingInvite) return undefined;
+    
+    const updatedInvite = { ...existingInvite, ...inviteData };
+    this.teamInvites.set(id, updatedInvite);
+    return updatedInvite;
+  }
+  
+  // Team Leaderboard operations
+  async getTeamLeaderboard(period: string): Promise<any[]> {
+    return Array.from(this.teamLeaderboardEntries.values())
+      .filter(entry => entry.period === period)
+      .sort((a, b) => b.points - a.points);
+  }
+  
+  async updateTeamLeaderboardEntry(teamId: number, data: Partial<any>): Promise<any> {
+    // Check if entry already exists
+    const existingEntry = Array.from(this.teamLeaderboardEntries.values())
+      .find(e => e.teamId === teamId && e.period === data.period);
+    
+    if (existingEntry) {
+      const updatedEntry = { 
+        ...existingEntry, 
+        ...data,
+        updatedAt: new Date()
+      };
+      this.teamLeaderboardEntries.set(existingEntry.id, updatedEntry);
+      return updatedEntry;
+    }
+    
+    // Create new entry
+    const id = this.currentTeamLeaderboardEntryId++;
+    const newEntry = { 
+      id, 
+      teamId,
+      points: 0,
+      tournamentCount: 0,
+      wins: 0,
+      earnings: 0,
+      ...data, 
+      updatedAt: new Date() 
+    };
+    this.teamLeaderboardEntries.set(id, newEntry);
+    return newEntry;
+  }
+  
+  // Chat System operations
+  async getChatRooms(): Promise<ChatRoom[]> {
+    return Array.from(this.chatRooms.values());
+  }
+  
+  async getChatRoom(id: number): Promise<ChatRoom | undefined> {
+    return this.chatRooms.get(id);
+  }
+  
+  async createChatRoom(room: InsertChatRoom): Promise<ChatRoom> {
+    const id = this.currentChatRoomId++;
+    const newRoom: ChatRoom = { 
+      ...room,
+      id, 
+      createdAt: new Date() 
+    };
+    this.chatRooms.set(id, newRoom);
+    return newRoom;
+  }
+  
+  async getChatMessages(roomId: number, limit: number = 50, offset: number = 0): Promise<ChatMessage[]> {
+    return Array.from(this.chatMessages.values())
+      .filter(message => message.roomId === roomId)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      .slice(offset, offset + limit);
+  }
+  
+  async createChatMessage(message: InsertChatMessage): Promise<ChatMessage> {
+    const id = this.currentChatMessageId++;
+    const newMessage: ChatMessage = { 
+      ...message, 
+      id, 
+      createdAt: new Date() 
+    };
+    this.chatMessages.set(id, newMessage);
+    return newMessage;
+  }
+  
+  // Marketplace operations
+  async getMarketplaceItems(): Promise<MarketplaceItem[]> {
+    return Array.from(this.marketplaceItems.values())
+      .filter(item => item.status === "available");
+  }
+  
+  async getMarketplaceItem(id: number): Promise<MarketplaceItem | undefined> {
+    return this.marketplaceItems.get(id);
+  }
+  
+  async createMarketplaceItem(item: InsertMarketplaceItem): Promise<MarketplaceItem> {
+    const id = this.currentMarketplaceItemId++;
+    const newItem: MarketplaceItem = { 
+      ...item, 
+      id, 
+      status: "available", 
+      listedAt: new Date() 
+    };
+    this.marketplaceItems.set(id, newItem);
+    return newItem;
+  }
+  
+  async updateMarketplaceItem(id: number, itemData: Partial<MarketplaceItem>): Promise<MarketplaceItem | undefined> {
+    const existingItem = this.marketplaceItems.get(id);
+    if (!existingItem) return undefined;
+    
+    const updatedItem = { ...existingItem, ...itemData };
+    this.marketplaceItems.set(id, updatedItem);
+    return updatedItem;
   }
   
   // Helper methods
