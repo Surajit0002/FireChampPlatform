@@ -11,6 +11,7 @@ import WalletPage from "@/pages/wallet-page";
 import ReferralPage from "@/pages/referral-page";
 import { ProtectedRoute } from "@/lib/protected-route";
 import TeamsPage from "@/pages/teams-page";
+import CreateTeamPage from "@/pages/create-team-page";
 
 function Router() {
   return (
@@ -20,7 +21,9 @@ function Router() {
       <Route path="/tournaments" component={TournamentsPage} />
       <Route path="/tournaments/:id" component={TournamentDetailPage} />
       <Route path="/leaderboard" component={LeaderboardPage} />
+      <Route path="/teams/create" component={CreateTeamPage} />
       <ProtectedRoute path="/profile" component={ProfilePage} />
+
       <ProtectedRoute path="/wallet" component={WalletPage} />
       <ProtectedRoute path="/refer" component={ReferralPage} />
       <Route path="/teams" component={TeamsPage} />

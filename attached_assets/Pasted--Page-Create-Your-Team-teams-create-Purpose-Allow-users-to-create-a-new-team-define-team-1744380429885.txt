@@ -1,0 +1,103 @@
+🛠️ Page: Create Your Team (/teams/create)
+🔥 Purpose:
+Allow users to create a new team, define team settings, add players (via UID/player ID), assign roles, and set up the team for tournaments.
+
+🧾 Sections on the Page
+1. 🧢 Team Identity Section
+Team Name (Unique)
+
+Team Logo Upload (optional, circular preview)
+
+Team Banner Image (optional)
+
+Team Tagline (short motto)
+
+Description (max 500 chars)
+
+2. 🔐 Team Privacy Settings
+Team Type:
+
+🔓 Public (anyone can request to join)
+
+🔒 Private (invite only)
+
+Team Mode:
+
+Solo / Duo / Squad / Custom
+
+Max Members:
+
+Options: 2 / 4 / 5 / 6 / Custom
+
+3. 👥 Add Team Members
+Dynamically add team players by UID:
+
+Field	Input Type
+Player UID	Text Input
+In-game Username	Auto-filled (if UID valid)
+Role Selection	Dropdown (Leader / Co-Leader / Fragger / Support / Sniper / Substitute)
+Country Flag	Auto-filled (optional)
+Player Rank (Optional)	Dropdown or Auto-filled
+✅ Auto-Fetch from UID (optional): In-game stats if integrated with Free Fire API.
+
+🔘 Add Button
+➖ Remove Player Option
+
+Minimum: 2 players (including Leader)
+Maximum: Based on Team Mode
+
+4. 🔁 Live Preview Panel (Right Side)
+Real-time rendered preview of your team:
+
+Team Logo + Name
+
+Tagline
+
+Players List with avatars, names, roles
+
+Total players + Readiness status
+
+5. 📋 Finalize & Submit
+✅ Checkbox: “I agree to the FireChamp Team Rules and Code of Conduct.”
+
+🔘 Create Team (CTA button)
+
+✨ UI/UX Design Ideas (Tailwind + React)
+🧩 Grid-based layout: form (left), live preview (right)
+
+🎨 Blue & orange theme with dark background
+
+📱 Fully responsive (mobile-first design)
+
+🎥 Framer Motion for section transitions and hover effects
+
+🧑‍🎓 Tooltips on player roles (e.g., “Sniper: Long-range specialist”)
+
+🎭 Avatar placeholders with random gamer avatars
+
+⚙️ Functional Features
+✅ Real-time validation (e.g., unique team name)
+
+✅ Player UID verification (fake API simulation or Free Fire UID if possible)
+
+✅ Dynamic Role Badges (Leader, Support, etc.)
+
+✅ Smart role limit (e.g., only 1 Leader, max 2 Co-Leaders)
+
+🔐 Backend / API Suggestions
+Action	API Route
+Create Team	POST /teams/create
+Check UID Validity	GET /users/validate/:uid
+Auto-fetch Player Info	GET /users/info/:uid
+Save Team Members & Roles	POST /teams/:id/players
+🧪 Optional Enhancements
+🪄 AI-based Role Suggestions (based on past match stats)
+
+🧑‍🤝‍🧑 Prebuilt Teams Templates
+
+📊 Mini player stat cards
+
+💬 Invite via link or share team code
+
+📲 QR Code generation for team invite
+
