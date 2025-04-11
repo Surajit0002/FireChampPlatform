@@ -2,6 +2,8 @@ import { users, tournaments, tournamentParticipants, transactions, leaderboardEn
 import type { User, InsertUser, Tournament, InsertTournament, TournamentParticipant, InsertTournamentParticipant, Transaction, InsertTransaction, LeaderboardEntry, InsertLeaderboardEntry, Referral, InsertReferral } from "@shared/schema";
 import createMemoryStore from "memorystore";
 import session from "express-session";
+import appwriteService from "./appwrite";
+import { ID, Query } from "appwrite";
 
 const MemoryStore = createMemoryStore(session);
 
